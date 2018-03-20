@@ -8,6 +8,7 @@ public class GameEditor : MonoBehaviour {
 	public Vector2 mapSiz;
 	public GameObject objectToSpawn;
 	Transform mapGrid;
+	bool CreateGame = true;
 	void Start()
 	{
 		GenerateMap ();
@@ -17,8 +18,15 @@ public class GameEditor : MonoBehaviour {
 
 	void Update()
 	{
+		if (CreateGame) {
+			PlaceTile ();
+		}
 
-		PlaceTile ();
+
+		if(Input.GetKeyDown(KeyCode.P))
+			{
+				PlayGame();
+			}
 	}
 
 	void PlaceTile()
@@ -62,4 +70,19 @@ public class GameEditor : MonoBehaviour {
 		}
 
 	}
+
+
+	public void ChangeCurrentTile(GameObject obj)
+	{
+		objectToSpawn = obj;
+	}
+
+	public void PlayGame()
+	{
+		CreateGame = false;
+
+		mapGrid.gameObject.SetActive (false);
+
+	}
+
 }
