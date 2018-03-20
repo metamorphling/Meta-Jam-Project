@@ -7,6 +7,7 @@ public class GameEditor : MonoBehaviour {
 	public Transform GridPrefab;
 	public Vector2 mapSiz;
 	public GameObject objectToSpawn;
+	Transform mapGrid;
 	void Start()
 	{
 		GenerateMap ();
@@ -44,11 +45,11 @@ public class GameEditor : MonoBehaviour {
 		string ParentName = "MapGrid"; // the name of the empty transform to hold our empty tiles
 
 		if (transform.Find (ParentName)) {
-			DestroyImmediate (transform.Find (ParentName).gameObject);
+			DestroyImmediate (transform.Find (ParentName).gameObject,true);
 
 		}
 
-		Transform mapGrid = new GameObject (ParentName).transform;
+		 mapGrid = new GameObject (ParentName).transform;
 
 		mapGrid.parent = transform;
 			
