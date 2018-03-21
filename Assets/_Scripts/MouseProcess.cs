@@ -29,24 +29,42 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public float insertLerpTime;
     public Transform insertPlace;
 
+    /* screen scale helper */
+    float scaler;
+
+    /* parenting to overlay when flying */
+    Transform origParent;
+
     enum CartridgeStatus
     {
         MouseOver,
         Arc,
         Insert,
-        Finished
+        Inserted,
+        None
     }
 
-    CartridgeStatus animationStatus = CartridgeStatus.Finished;
+    bool modePlay = false;
+    int siblingIndex; 
+    CartridgeStatus animationStatus = CartridgeStatus.None;
+    bool goBack = false;
+
+    List<Vector3> lastPositions;
 
     void Start() {
+        lastPositions = new List<Vector3>();
         origPos = transform.position;
         cartridges = transform.parent.transform;
+        CanvasScaler ScreenScale = GetComponentInParent<CanvasScaler>();
+        scaler = ScreenScale.referenceResolution.x / Screen.width;
+        moveDistanceX = (moveDistanceX / scaler);
+        moveDistanceY = (moveDistanceY / scaler);
+        siblingIndex = transform.GetSiblingIndex();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (animationStatus == CartridgeStatus.Finished)
+        if (animationStatus == CartridgeStatus.None)
         {
             startPos = origPos;
             endPos = transform.position + transform.up * moveDistanceY + transform.right * moveDistanceX;
@@ -65,6 +83,16 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
     }
 
+    public void ChooseCartridge()
+    {
+        lastPositions.Add(origPos);
+        //lastPositions.Add(transform.position);
+        animationStatus = CartridgeStatus.Arc;
+        currentLerpTime = 0;
+        startPos = transform.position;
+        endPos = transform.position + transform.up * arcMoveDistanceY + transform.right * (insertPlace.position.x - transform.position.x);
+    }
+
     void PopUpProcessing()
     {
         currentLerpTime += Time.deltaTime;
@@ -77,15 +105,13 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         transform.position = Vector3.Lerp(startPos, endPos, perc);
 
         if (perc == 1 && transform.position == origPos)
-            animationStatus = CartridgeStatus.Finished;
-    }
+        {
+            animationStatus = CartridgeStatus.None;
+            if (goBack)
+            {
 
-    public void ChooseCartridge()
-    {
-        animationStatus = CartridgeStatus.Arc;
-        currentLerpTime = 0;
-        startPos = transform.position;
-        endPos = transform.position + transform.up * arcMoveDistanceY + transform.right * (insertPlace.position.x - transform.position.x);
+            }
+        }
     }
 
     void CartridgeArcProcessing()
@@ -98,20 +124,34 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         float perc = currentLerpTime / lerpTime;
         perc = Mathf.Sin(Mathf.PI * perc * 0.5f);
-        //float percAxisX = (transform.position.x - startPos.x) / (endPos.x - startPos.x);
-        //percAxisX = Mathf.Sin(Mathf.PI * percAxisX);
-        float percAxisY = (transform.position.y - startPos.y) / (endPos.y - startPos.y);
-        percAxisY = Mathf.Sin(Mathf.PI * percAxisY);
+        if (goBack == false)
+        {
+            float percAxisY = (transform.position.y - startPos.y) / (endPos.y - startPos.y);
+            percAxisY = Mathf.Sin(Mathf.PI * percAxisY);
+            transform.position = Vector3.Lerp(startPos + (-transform.right) * percAxisY * 20, endPos + (-transform.right) * percAxisY * 20, perc);
+        }
+        else
+        {
+            float percAxisY = Mathf.Abs((transform.position.y - startPos.y) / (endPos.y - startPos.y));
+            percAxisY = Mathf.Sin(Mathf.PI * percAxisY);
+            transform.position = Vector3.Lerp(startPos + (-transform.right) * percAxisY * 20, endPos + (-transform.right) * percAxisY * 20, perc);
+        }
 
-        transform.position = Vector3.Lerp(startPos + (-transform.right) * percAxisY * 20, endPos + (-transform.right) * percAxisY * 20, perc);
 
         if (perc == 1)
         {
-            transform.SetParent(gameSystemBG);
-            endPos = insertPlace.position;
-            startPos = transform.position;
             currentLerpTime = 0;
-            animationStatus = CartridgeStatus.Insert;
+            startPos = transform.position;
+            if (goBack == false)
+            {
+                transform.SetParent(gameSystemBG);
+                endPos = insertPlace.position;
+                animationStatus = CartridgeStatus.Insert;
+                lastPositions.Add(transform.position);
+            } else
+            {
+                animationStatus = CartridgeStatus.None;
+            }
         }
     }
 
@@ -128,9 +168,36 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         if (perc == 1)
         {
-            animationStatus = CartridgeStatus.Finished;
-            inventory.StartSlideOut();
+            if (goBack == false)
+            {
+                inventory.StartSlideOut();
+                animationStatus = CartridgeStatus.Inserted;
+            } else
+            {
+                currentLerpTime = 0;
+                startPos = transform.position;
+                endPos = lastPositions[lastPositions.Count - 1];
+                lastPositions.RemoveAt(lastPositions.Count - 1);
+                animationStatus = CartridgeStatus.Arc;
+                transform.SetParent(cartridges);
+                transform.SetSiblingIndex(siblingIndex);
+            }
         }
+    }
+
+    public void ReplayClick()
+    {
+        if (animationStatus != CartridgeStatus.Inserted)
+            return;
+
+        if (modePlay == false)
+        {
+            modePlay = true;
+            return;
+        }
+        modePlay = false;
+
+        goBack = true;
     }
 
     private void Update()
@@ -147,8 +214,19 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             CartridgeInsertProcessing();
         }
-        else if(animationStatus == CartridgeStatus.Finished)
+        else if(animationStatus == CartridgeStatus.None)
         {
+        }
+        else if (animationStatus == CartridgeStatus.Inserted)
+        {
+            if (goBack == true)
+            {
+                currentLerpTime = 0;
+                startPos = transform.position;
+                endPos = lastPositions[lastPositions.Count - 1];
+                lastPositions.RemoveAt(lastPositions.Count - 1);
+                animationStatus = CartridgeStatus.Insert;
+            }
         }
     }
 }
