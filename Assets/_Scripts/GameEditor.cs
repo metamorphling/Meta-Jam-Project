@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class GameEditor : MonoBehaviour {
 
@@ -9,32 +11,36 @@ public class GameEditor : MonoBehaviour {
 	public GameObject objectToSpawn;
 	Transform mapGrid;
 	bool CreateGame = true;
+	public bool RegenerateMap = false;
+	public Camera cam;
 	void Start()
 	{
+		if(RegenerateMap == true)
 		GenerateMap ();
 	}
 
 
 	void Update()
 	{
-		if (CreateGame) {
-			PlaceTile ();
-		}
-
-
+		
 		if(Input.GetKeyDown(KeyCode.P))
 			{
 				PlayGame();
 			}
 	}
 
-	void PlaceTile()
+	public void PlaceTile()
 	{
-		Vector2 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		Collider2D hit = Physics2D.OverlapPoint(mousePos);
-		if (hit != null && Input.GetMouseButtonDown(0)) {
-			GameObject tile = Instantiate (objectToSpawn, hit.gameObject.transform.position,Quaternion.identity);
+		if (CreateGame) {
+			Vector2 mousePos = cam.ScreenToWorldPoint (Input.mousePosition);
+			Collider2D hit = Physics2D.OverlapPoint(mousePos);
+			if (hit != null) {
+				GameObject tile = Instantiate (objectToSpawn, hit.gameObject.transform.position,Quaternion.identity);
+			}
 		}
+
+
+
 	}
 
 	void ColorTile() // this is a test fuction
@@ -58,13 +64,15 @@ public class GameEditor : MonoBehaviour {
 
 		 mapGrid = new GameObject (ParentName).transform;
 
-		mapGrid.parent = transform;
+		//mapGrid.parent = transform;
 			
 		for (int x = 0; x < mapSiz.x; x++) {
 			for (int y = 0; y < mapSiz.y; y++) {
-				Vector3 tilePosition = new Vector3(-mapSiz.x+ (x *1.5f), -mapSiz.y+(y ) ,0); // the .64 is the size of the tile as a float below 1f
+				Vector3 tilePosition = new Vector3(-mapSiz.x+ (x *1.5f) + 2, -mapSiz.y+(y ) +9,0); // the .64 is the size of the tile as a float below 1f
 				Transform newtile = Instantiate (GridPrefab, tilePosition, Quaternion.identity) as Transform;
 				newtile.parent = mapGrid;
+
+				//newtile.GetComponent<Trigger
 			}
 		}
 

@@ -12,7 +12,7 @@ public class ItemUse : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     private GameObject m_DraggingIcon;
     private RectTransform m_DraggingPlane;
     private Image self;
-
+	public GameObject PrefabToSet;
     void Start()
     {
         self = GetComponent<Image>();
@@ -45,6 +45,8 @@ public class ItemUse : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
             SetDraggedPosition(data);
     }
 
+ 
+
     private void SetDraggedPosition(PointerEventData data)
     {
         if (dragOnSurfaces && data.pointerEnter != null && data.pointerEnter.transform as RectTransform != null)
@@ -61,8 +63,16 @@ public class ItemUse : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
     public void OnEndDrag(PointerEventData eventData)
     {
+
+		GameObject.Find ("Editor").GetComponent<GameEditor> ().PlaceTile ();
+
+
+
         if (m_DraggingIcon != null)
             Destroy(m_DraggingIcon);
+
+
+
     }
 
     static public T FindInParents<T>(GameObject go) where T : Component

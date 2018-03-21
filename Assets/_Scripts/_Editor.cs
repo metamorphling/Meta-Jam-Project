@@ -12,6 +12,6 @@ public class _Editor : Editor {
 
 		GameEditor edit = target as GameEditor;
 
-		edit.GenerateMap ();
+		//edit.GenerateMap ();
 	}
 }
