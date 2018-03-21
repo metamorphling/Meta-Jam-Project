@@ -12,7 +12,6 @@ public class GameEditor : MonoBehaviour {
 	void Start()
 	{
 		GenerateMap ();
-
 	}
 
 
@@ -53,8 +52,8 @@ public class GameEditor : MonoBehaviour {
 		string ParentName = "MapGrid"; // the name of the empty transform to hold our empty tiles
 
 		if (transform.Find (ParentName)) {
-			DestroyImmediate (transform.Find (ParentName).gameObject,true);
-
+			 DestroyImmediate (transform.Find (ParentName).gameObject,true);
+			 
 		}
 
 		 mapGrid = new GameObject (ParentName).transform;
@@ -63,7 +62,7 @@ public class GameEditor : MonoBehaviour {
 			
 		for (int x = 0; x < mapSiz.x; x++) {
 			for (int y = 0; y < mapSiz.y; y++) {
-				Vector3 tilePosition = new Vector3(-mapSiz.x+ (x ), -mapSiz.y+(y * 1.05f) ,0); // the .64 is the size of the tile as a float below 1f
+				Vector3 tilePosition = new Vector3(-mapSiz.x+ (x *1.5f), -mapSiz.y+(y ) ,0); // the .64 is the size of the tile as a float below 1f
 				Transform newtile = Instantiate (GridPrefab, tilePosition, Quaternion.identity) as Transform;
 				newtile.parent = mapGrid;
 			}
