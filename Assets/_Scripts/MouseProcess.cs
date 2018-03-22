@@ -28,12 +28,14 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /* move into game system variables */
     public float insertLerpTime;
     public Transform insertPlace;
+    public LevelManager levelManager;
 
     /* screen scale helper */
     float scaler;
 
     /* parenting to overlay when flying */
     Transform origParent;
+
 
     enum CartridgeStatus
     {
@@ -172,6 +174,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             {
                 inventory.StartSlideOut();
                 animationStatus = CartridgeStatus.Inserted;
+                ChangeLevel();
             } else
             {
                 currentLerpTime = 0;
@@ -228,5 +231,10 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 animationStatus = CartridgeStatus.Insert;
             }
         }
+    }
+
+    void ChangeLevel()
+    {
+        levelManager.ChangeLevel(int.Parse(gameObject.name));
     }
 }

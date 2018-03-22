@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour {
 
     void ProcessSprite()
     {
-        spriteIsRight = inputAxis >= 0 ? true : false;
+        spriteIsRight = rb.velocity.x >= 0 ? true : false;
         if (spriteIsRight == false)
             sr.flipX = true;
         else
