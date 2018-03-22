@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1874306987250316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -23.075876, y: -0.15392017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,5 +55,4 @@ MonoBehaviour:
   mapSiz: {x: 15, y: 15}
   objectToSpawn: {fileID: 1797558243525678, guid: d6f449ea82c58ca4a87ce01e8ea6d4fc,
     type: 2}
-  RegenerateMap: 0
   cam: {fileID: 0}

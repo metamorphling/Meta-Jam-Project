@@ -11,11 +11,9 @@ public class GameEditor : MonoBehaviour {
 	public GameObject objectToSpawn;
 	Transform mapGrid;
 	bool CreateGame = true;
-	public bool RegenerateMap = false;
 	public Camera cam;
 	void Start()
 	{
-		if(RegenerateMap == true)
 		GenerateMap ();
 	}
 
@@ -72,7 +70,6 @@ public class GameEditor : MonoBehaviour {
 				Transform newtile = Instantiate (GridPrefab, tilePosition, Quaternion.identity) as Transform;
 				newtile.parent = mapGrid;
 
-				//newtile.GetComponent<Trigger
 			}
 		}
 
