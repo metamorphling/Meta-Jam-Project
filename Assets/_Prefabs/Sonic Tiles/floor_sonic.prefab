@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4967975943208494}
   - component: {fileID: 212944466971104692}
   - component: {fileID: 61146546571124724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: floor_sonic
   m_TagString: Untagged
   m_Icon: {fileID: 0}

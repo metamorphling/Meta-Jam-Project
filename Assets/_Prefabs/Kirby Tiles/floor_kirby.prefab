@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4055040292549680}
   - component: {fileID: 212814963956626718}
   - component: {fileID: 61572237520330422}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: floor_kirby
   m_TagString: Untagged
   m_Icon: {fileID: 0}

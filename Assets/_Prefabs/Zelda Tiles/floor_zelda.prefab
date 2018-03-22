@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4757931902481036}
   - component: {fileID: 212682805357241018}
   - component: {fileID: 61836593815917570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: floor_zelda
   m_TagString: Untagged
   m_Icon: {fileID: 0}

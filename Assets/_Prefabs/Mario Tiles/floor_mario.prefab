@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4424707047058018}
   - component: {fileID: 212059796983374290}
   - component: {fileID: 61257157034217380}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: floor_mario
   m_TagString: Untagged
   m_Icon: {fileID: 0}
