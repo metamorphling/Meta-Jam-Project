@@ -935,6 +935,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1577589365}
+        m_MethodName: PlayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &612074123
@@ -948,6 +959,7 @@ GameObject:
   - component: {fileID: 612074126}
   - component: {fileID: 612074125}
   - component: {fileID: 612074127}
+  - component: {fileID: 612074128}
   m_Layer: 5
   m_Name: Item1
   m_TagString: Untagged
@@ -1019,6 +1031,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
   frame: {fileID: 1844097407}
+  PrefabToSet: {fileID: 1975570010089858, guid: de0747e6ae6b8464c974a47097e37130,
+    type: 2}
+--- !u!114 &612074128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 612074123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1577589365}
+          m_MethodName: ChangeCurrentTile
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1975570010089858, guid: de0747e6ae6b8464c974a47097e37130,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1 &618223491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1266,58 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!1001 &738572664
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4373591733379444, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373591733379444, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373591733379444, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373591733379444, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373591733379444, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373591733379444, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373591733379444, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373591733379444, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114923699566773378, guid: 8028e8f4876b7b54abf91f09ce3b55bf,
+        type: 2}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 642119174}
+    - target: {fileID: 114923699566773378, guid: 8028e8f4876b7b54abf91f09ce3b55bf,
+        type: 2}
+      propertyPath: RegenerateMap
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8028e8f4876b7b54abf91f09ce3b55bf, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &831991853
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,6 +2136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
   frame: {fileID: 1844097407}
+  PrefabToSet: {fileID: 0}
 --- !u!1 &1194085373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2551,6 +2649,7 @@ GameObject:
   - component: {fileID: 1545842191}
   - component: {fileID: 1545842190}
   - component: {fileID: 1545842192}
+  - component: {fileID: 1545842193}
   m_Layer: 5
   m_Name: Item2
   m_TagString: Untagged
@@ -2622,6 +2721,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
   frame: {fileID: 1844097407}
+  PrefabToSet: {fileID: 1489239036284918, guid: 8e3c71cfd25393742a17ad68ad73faf7,
+    type: 2}
+--- !u!114 &1545842193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1545842188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1577589365}
+          m_MethodName: ChangeCurrentTile
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1489239036284918, guid: 8e3c71cfd25393742a17ad68ad73faf7,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
+--- !u!114 &1577589365 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114923699566773378, guid: 8028e8f4876b7b54abf91f09ce3b55bf,
+    type: 2}
+  m_PrefabInternal: {fileID: 738572664}
+  m_Script: {fileID: 11500000, guid: a525c0837dc80594dbc07c38a0caa75f, type: 3}
 --- !u!1 &1674226460
 GameObject:
   m_ObjectHideFlags: 0
