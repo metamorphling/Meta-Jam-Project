@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpForce = 2.0f;
 	public int FallModifier = 3;
 	public int LowFallModifier = 4;
+	bool JumpHeld = false;
 	public Transform groundCheckPoint;
 	public LayerMask groundLayer;
     float inputAxis;
@@ -36,12 +37,12 @@ public class PlayerController : MonoBehaviour {
 
     public void MoveLeft()
     {
-        moveModifier = -0.8f;
+        moveModifier = -0.2f;
     }
 
     public void MoveRight()
     {
-        moveModifier = 0.8f;
+        moveModifier = 0.2f;
     }
 
     public void MoveUp()
@@ -56,10 +57,17 @@ public class PlayerController : MonoBehaviour {
 
     public void Jump()
     {
-        if (isGrounded == true)
-        {
-            doJump = true;
-        }
+		if (count < 1 && !doJump) {
+			{
+				GetComponent<Rigidbody2D> ().velocity = new Vector2 (GetComponent<Rigidbody2D> ().velocity.x, jumpForce);
+
+				doJump = true;
+
+				count++;
+
+				JumpHeld = true;
+			}
+		}
     }
 
     public void Action()
@@ -82,7 +90,7 @@ public class PlayerController : MonoBehaviour {
         if (inputAxis >= 1)
             inputAxis = 1;
         else if (inputAxis <= -1)
-            inputAxis = -1;*/
+            inputAxis = -1;
 
 	
 	 
@@ -96,7 +104,7 @@ public class PlayerController : MonoBehaviour {
 			
 				count++;
 			}
-		}
+		}*/
     }
 
     void ProcessSprite()
@@ -111,14 +119,12 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate()
     {
 		if (AbleToMove) {
-			float move = movementSpeed * Input.GetAxisRaw ("Horizontal");
+			float move = movementSpeed * moveModifier;
 
-			if (move == 0) {
-				rb.velocity = new Vector2 (0, rb.velocity.y);
-			}
+
 			if (rb.velocity.y < 0) {
 				rb.velocity += Vector2.up * Physics2D.gravity.y * (FallModifier - 1) * Time.deltaTime;
-			} else if (rb.velocity.y > 0 && !Input.GetButton ("Jump")) {
+			} else if (rb.velocity.y > 0 && !JumpHeld) {
 				rb.velocity += Vector2.up * Physics2D.gravity.y * (LowFallModifier - 1) * Time.deltaTime;
 			}
 
@@ -155,5 +161,10 @@ public class PlayerController : MonoBehaviour {
 	public void AllowMovement()
 	{
 		AbleToMove = true;
+	}
+
+	public void JumpLetgo()
+	{
+		JumpHeld = false;
 	}
 }
