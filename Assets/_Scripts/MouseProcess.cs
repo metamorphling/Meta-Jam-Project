@@ -36,8 +36,9 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /* parenting to overlay when flying */
     Transform origParent;
 
+    List<MouseProcess> allCartridges;
 
-    enum CartridgeStatus
+    public enum CartridgeStatus
     {
         MouseOver,
         Arc,
@@ -48,7 +49,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     bool modePlay = false;
     int siblingIndex; 
-    CartridgeStatus animationStatus = CartridgeStatus.None;
+    public CartridgeStatus animationStatus = CartridgeStatus.None;
     bool goBack = false;
 
     List<Vector3> lastPositions;
@@ -62,12 +63,26 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         moveDistanceX = (moveDistanceX / scaler);
         moveDistanceY = (moveDistanceY / scaler);
         siblingIndex = transform.GetSiblingIndex();
+
+        allCartridges = new List<MouseProcess>();
+        foreach (MouseProcess go in transform.parent.GetComponentsInChildren<MouseProcess>())
+        {
+            allCartridges.Add(go);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (animationStatus == CartridgeStatus.None)
         {
+            foreach (MouseProcess go in allCartridges)
+            {
+                if (go.animationStatus < CartridgeStatus.None && go.animationStatus > CartridgeStatus.MouseOver)
+                {
+                    return;
+                }
+            }
+
             startPos = origPos;
             endPos = transform.position + transform.up * moveDistanceY + transform.right * moveDistanceX;
             currentLerpTime = 0f;
@@ -87,8 +102,15 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void ChooseCartridge()
     {
+        foreach (MouseProcess go in allCartridges)
+        {
+            if (go.animationStatus < CartridgeStatus.None && go.animationStatus > CartridgeStatus.MouseOver)
+            {
+                return;
+            }
+        }
+
         lastPositions.Add(origPos);
-        //lastPositions.Add(transform.position);
         animationStatus = CartridgeStatus.Arc;
         currentLerpTime = 0;
         startPos = transform.position;
@@ -111,7 +133,6 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             animationStatus = CartridgeStatus.None;
             if (goBack)
             {
-
             }
         }
     }
@@ -152,6 +173,8 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 lastPositions.Add(transform.position);
             } else
             {
+                transform.SetParent(cartridges);
+                transform.SetSiblingIndex(siblingIndex);
                 animationStatus = CartridgeStatus.None;
             }
         }
@@ -182,8 +205,9 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 endPos = lastPositions[lastPositions.Count - 1];
                 lastPositions.RemoveAt(lastPositions.Count - 1);
                 animationStatus = CartridgeStatus.Arc;
-                transform.SetParent(cartridges);
-                transform.SetSiblingIndex(siblingIndex);
+                /* the right place to return to parent is here but if we change parent since holder is still on the move shit will get really broken */
+                //transform.SetParent(cartridges);
+                //transform.SetSiblingIndex(siblingIndex);
             }
         }
     }
@@ -201,6 +225,8 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         modePlay = false;
 
         goBack = true;
+
+        inventory.transform.parent.GetComponentInChildren<HolderSlide>().StartSlideTimer();
     }
 
     private void Update()

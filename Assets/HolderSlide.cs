@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ControllerSlide : MonoBehaviour {
+public class HolderSlide : MonoBehaviour {
     public float lerpTime;
 
     float currentLerpTime = 0;
     Vector3 origPos;
-    Vector3 origEndPos;
     Vector3 startPos;
     Vector3 endPos;
     bool sliding = false;
-    float controllerSize;
+    float holderSize;
     bool isPlaying = false;
 
     private void Start()
     {
         RectTransform t = GetComponent<RectTransform>();
         CanvasScaler ScreenScale = GetComponentInParent<CanvasScaler>();
-        controllerSize = (t.sizeDelta.y / (ScreenScale.referenceResolution.y / Screen.height));
+        holderSize = (t.sizeDelta.y / (ScreenScale.referenceResolution.y / Screen.height));
         origPos = transform.position;
-        origEndPos = transform.position + Vector3.up * controllerSize;
     }
 
-    IEnumerator TimedSliding() {
-        yield return new WaitForSeconds(1f);
+    IEnumerator TimedSliding()
+    {
+        yield return new WaitForSeconds(0.2f);
         sliding = true;
     }
 
@@ -35,15 +34,16 @@ public class ControllerSlide : MonoBehaviour {
         if (isPlaying == true)
         {
             startPos = transform.position;
-            endPos = origPos;
+            endPos = transform.position + Vector3.up * holderSize * 0.6f;
         }
         else
         {
-            startPos = transform.position;
-            endPos = origEndPos;
+            startPos = origPos;
+            endPos = transform.position - Vector3.up * holderSize * 0.6f;
         }
 
-        StartCoroutine("TimedSliding");
+        sliding = true;
+        //StartCoroutine("TimedSliding");
     }
 
     void Sliding()

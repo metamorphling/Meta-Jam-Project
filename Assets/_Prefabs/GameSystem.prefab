@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 222377893465491196}
   - component: {fileID: 114051548635233120}
   - component: {fileID: 114045207096811590}
-  - component: {fileID: 114038280694581496}
+  - component: {fileID: 114370276795756312}
   m_Layer: 5
   m_Name: 2
   m_TagString: Untagged
@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 224996395415811042}
   - component: {fileID: 222727841367831760}
   - component: {fileID: 114527920959987864}
+  - component: {fileID: 114076015991618944}
   m_Layer: 5
   m_Name: CartridgeHolderBG
   m_TagString: Untagged
@@ -310,27 +311,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114038280694581496
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1771901584493508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65cca311e8e32048b7a030959d14c77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameSystemBG: {fileID: 224635563633500518}
-  inventory: {fileID: 114400267906934444}
-  lerpTime: 0.3
-  moveDistanceY: 10
-  moveDistanceX: -52
-  arcLerpTime: 0.3
-  arcMoveDistanceY: 50
-  arcMoveDistanceX: 0
-  insertLerpTime: 0.2
-  insertPlace: {fileID: 224742900021711098}
 --- !u!114 &114045207096811590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,8 +350,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114038280694581496}
+      - m_Target: {fileID: 114370276795756312}
         m_MethodName: ChooseCartridge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114076015991618944}
+        m_MethodName: StartSlideTimer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -410,6 +401,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114076015991618944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1907254690862632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6172de894fa024da6dd8d995b8130d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpTime: 1
 --- !u!114 &114248117665765850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -557,7 +560,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114038280694581496}
+      - m_Target: {fileID: 0}
         m_MethodName: ReplayClick
         m_Mode: 1
         m_Arguments:
@@ -635,6 +638,29 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114370276795756312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771901584493508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65cca311e8e32048b7a030959d14c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameSystemBG: {fileID: 224635563633500518}
+  inventory: {fileID: 114400267906934444}
+  lerpTime: 0.3
+  moveDistanceY: 10
+  moveDistanceX: -52
+  arcLerpTime: 0.3
+  arcMoveDistanceY: 50
+  arcMoveDistanceX: 0
+  insertLerpTime: 0.2
+  insertPlace: {fileID: 224742900021711098}
+  levelManager: {fileID: 0}
+  animationStatus: 4
 --- !u!114 &114370717066518910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -711,6 +737,8 @@ MonoBehaviour:
   arcMoveDistanceX: 0
   insertLerpTime: 0.2
   insertPlace: {fileID: 224742900021711098}
+  levelManager: {fileID: 0}
+  animationStatus: 4
 --- !u!114 &114470988389427224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -732,6 +760,8 @@ MonoBehaviour:
   arcMoveDistanceX: 0
   insertLerpTime: 0.2
   insertPlace: {fileID: 224742900021711098}
+  levelManager: {fileID: 0}
+  animationStatus: 4
 --- !u!114 &114500595993982208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -834,6 +864,8 @@ MonoBehaviour:
   arcMoveDistanceX: 0
   insertLerpTime: 0.2
   insertPlace: {fileID: 224742900021711098}
+  levelManager: {fileID: 0}
+  animationStatus: 4
 --- !u!114 &114570185104531370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -929,6 +961,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 114076015991618944}
+        m_MethodName: StartSlideTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114668976551925950
@@ -988,6 +1031,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 114407129967426898}
         m_MethodName: ChooseCartridge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114076015991618944}
+        m_MethodName: StartSlideTimer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1251,6 +1305,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 114076015991618944}
+        m_MethodName: StartSlideTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!222 &222015102417470924
@@ -1412,7 +1477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 339, y: -20}
+  m_AnchoredPosition: {x: 379, y: -20}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224189807902542550
