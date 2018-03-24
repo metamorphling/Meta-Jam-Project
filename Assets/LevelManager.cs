@@ -60,9 +60,33 @@ public class LevelManager : MonoBehaviour {
             spriteCount++;
         }
 
-        buttonOffset = updateTo * 2;
+
+
+        int[] sizes = { 3, 2, 1, 0};
+        if (updateTo == 0)
+        {
+            buttonOffset = 0;
+        } else if (updateTo == 1)
+        {
+            buttonOffset = 3;
+        } else if (updateTo == 2)
+        {
+            buttonOffset = 5;
+        } else
+        {
+            buttonOffset = 0;
+        }
+
+        int limit = buttonOffset + sizes[updateTo];
         foreach (GameObject go in inventoryItems)
         {
+            if (buttonOffset >= limit)
+            {
+                go.GetComponent<ItemUse>().PrefabToSet = null;
+                go.GetComponent<Image>().enabled = false;
+                continue;
+            }
+            go.GetComponent<Image>().enabled = true;
             go.GetComponent<ItemUse>().PrefabToSet = itemPrefabs[buttonOffset];
             //go.GetComponent<EventTrigger>().GetComponent
             go.GetComponent<Image>().sprite = itemPrefabs[buttonOffset].GetComponent<SpriteRenderer>().sprite;
