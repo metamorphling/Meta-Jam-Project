@@ -24,15 +24,18 @@ public class ControllerSlide : MonoBehaviour {
         origEndPos = transform.position + Vector3.up * controllerSize;
     }
 
-    IEnumerator TimedSliding() {
+    IEnumerator TimedSliding()
+    {
         yield return new WaitForSeconds(1f);
-        sliding = true;
+        if (sliding == false)
+            sliding = true;
     }
 
     public void StartSlideTimer()
     {
         currentLerpTime = 0;
-        if (isPlaying == true)
+
+        if (isPlaying == true || sliding == true)
         {
             startPos = transform.position;
             endPos = origPos;
@@ -42,7 +45,6 @@ public class ControllerSlide : MonoBehaviour {
             startPos = transform.position;
             endPos = origEndPos;
         }
-
         StartCoroutine("TimedSliding");
     }
 
@@ -67,6 +69,7 @@ public class ControllerSlide : MonoBehaviour {
                 isPlaying = true;
         }
     }
+
     void Update()
     {
         if (sliding == false)

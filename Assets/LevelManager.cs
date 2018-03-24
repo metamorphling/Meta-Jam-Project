@@ -15,12 +15,16 @@ public class LevelManager : MonoBehaviour {
 
     /* array number should match the name of the cartridge, 1-mario,2-zelda,3-sonic,4-kirby */
     public List<Sprite> floorBasic;
+    public List<Sprite> wallBasic;
+    public List<Sprite> springBasic;
     public List<Sprite> character;
     public List<Sprite> backgrounds;
     public List<Sprite> buttons;
     public List<GameObject> itemPrefabs;
 
-    List<SpriteRenderer> environmentSprites;
+    List<SpriteRenderer> floorSprites;
+    List<SpriteRenderer> wallSprites;
+    List<SpriteRenderer> springSprites;
     List<SpriteRenderer> characterSprites;
     List<Image> buttonSprites;
     List<GameObject> inventoryItems;
@@ -29,9 +33,17 @@ public class LevelManager : MonoBehaviour {
     void UpdateSprites(int updateTo)
     {
         updateTo--;
-        foreach (SpriteRenderer go in environmentSprites)
+        foreach (SpriteRenderer go in floorSprites)
         {
             go.sprite = floorBasic[updateTo];
+        }
+        foreach (SpriteRenderer go in wallSprites)
+        {
+            go.sprite = wallBasic[updateTo];
+        }
+        foreach (SpriteRenderer go in springSprites)
+        {
+            go.sprite = springBasic[updateTo];
         }
         player.sprite = character[updateTo];
         levelBackground.sprite = backgrounds[updateTo];
@@ -65,10 +77,20 @@ public class LevelManager : MonoBehaviour {
     } 
 
 	void Start () {
-        environmentSprites = new List<SpriteRenderer>();
-        foreach (SpriteRenderer go in Environment.GetComponentsInChildren<SpriteRenderer>())
+        floorSprites = new List<SpriteRenderer>();
+        foreach (SpriteRenderer go in Environment.transform.GetChild(0).GetComponentsInChildren<SpriteRenderer>())
         {
-            environmentSprites.Add(go);
+            floorSprites.Add(go);
+        }
+        wallSprites = new List<SpriteRenderer>();
+        foreach (SpriteRenderer go in Environment.transform.GetChild(1).GetComponentsInChildren<SpriteRenderer>())
+        {
+            wallSprites.Add(go);
+        }
+        springSprites = new List<SpriteRenderer>();
+        foreach (SpriteRenderer go in Environment.transform.GetChild(2).GetComponentsInChildren<SpriteRenderer>())
+        {
+            springSprites.Add(go);
         }
         buttonSprites = new List<Image>();
         foreach (Image go in controller.transform.GetChild(0).GetChild(0).GetComponentsInChildren<Image>())

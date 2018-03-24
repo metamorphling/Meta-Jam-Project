@@ -34,18 +34,18 @@ public class HolderSlide : MonoBehaviour {
         if (isPlaying == true)
         {
             startPos = transform.position;
-            endPos = transform.position + Vector3.up * holderSize * 0.6f;
+            endPos = transform.position + Vector3.up * holderSize * 0.8f; //0.6 to slightly show
         }
         else
         {
             startPos = origPos;
-            endPos = transform.position - Vector3.up * holderSize * 0.6f;
+            endPos = transform.position - Vector3.up * holderSize * 0.8f;
         }
 
         sliding = true;
         //StartCoroutine("TimedSliding");
     }
-
+    
     void Sliding()
     {
         currentLerpTime += Time.deltaTime;

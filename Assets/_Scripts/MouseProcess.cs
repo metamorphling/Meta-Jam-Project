@@ -102,6 +102,8 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void ChooseCartridge()
     {
+        if (animationStatus == CartridgeStatus.Inserted)
+            return;
         foreach (MouseProcess go in allCartridges)
         {
             if (go.animationStatus < CartridgeStatus.None && go.animationStatus > CartridgeStatus.MouseOver)
@@ -115,6 +117,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         currentLerpTime = 0;
         startPos = transform.position;
         endPos = transform.position + transform.up * arcMoveDistanceY + transform.right * (insertPlace.position.x - transform.position.x);
+        transform.GetComponentInParent<HolderSlide>().StartSlideTimer();
     }
 
     void PopUpProcessing()
@@ -176,6 +179,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 transform.SetParent(cartridges);
                 transform.SetSiblingIndex(siblingIndex);
                 animationStatus = CartridgeStatus.None;
+                goBack = false;
             }
         }
     }

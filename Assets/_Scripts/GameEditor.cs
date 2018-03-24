@@ -81,12 +81,18 @@ public class GameEditor : MonoBehaviour {
 		objectToSpawn = obj;
 	}
 
-	public void PlayGame()
-	{
-		CreateGame = false;
-
-		mapGrid.gameObject.SetActive (false);
-
-	}
+    public void PlayGame()
+    {
+        if (CreateGame == true)
+        {
+            CreateGame = false;
+            mapGrid.gameObject.SetActive(false);
+        }
+        else
+        {
+            CreateGame = true;
+            mapGrid.gameObject.SetActive(true);
+        }
+    }
 
 }
