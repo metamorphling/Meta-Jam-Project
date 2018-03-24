@@ -101,10 +101,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9a56cf48aa3a6cd4caa62618173038ee, type: 3}
   itemPrefabs:
   - {fileID: 1975570010089858, guid: de0747e6ae6b8464c974a47097e37130, type: 2}
-  - {fileID: 1489239036284918, guid: 8e3c71cfd25393742a17ad68ad73faf7, type: 2}
-  - {fileID: 1875398092088876, guid: f89f4a2ed03f1824e91911d9a4dd9adf, type: 2}
+  - {fileID: 1150715158366152, guid: 078bfea7fca6ec547a2815d4a5def794, type: 2}
+  - {fileID: 1150715158366152, guid: d552fc521ea07c8429fafbc6a9c92750, type: 2}
   - {fileID: 1046380350100522, guid: a9c02e36db854a74c81edf31fbc60c56, type: 2}
-  - {fileID: 1259748954663858, guid: 501755894824ca24692a41e229a1aba1, type: 2}
+  - {fileID: 1046380350100522, guid: dad7145f8de01f54f978bb77c71ace93, type: 2}
   - {fileID: 1814049874314030, guid: 84f556337913ce847b5d2b41783c098a, type: 2}
-  - {fileID: 1198708209021120, guid: f9e111a3d310cb84880f02e50a2c844b, type: 2}
-  - {fileID: 1332156930943408, guid: 6d483761073b3114d8df257cfa5ab8ba, type: 2}
