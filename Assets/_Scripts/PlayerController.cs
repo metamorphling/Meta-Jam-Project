@@ -129,16 +129,15 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (1, 0) * move, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(GetComponent<Rigidbody2D>().velocity.x, -5, 5), GetComponent<Rigidbody2D>().velocity.y);
+            isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, 1f, groundLayer);
+            if (isTouchingGround == true && doJump == true && rb.velocity.y == 0)
+            {
+                count = 0;
+                doJump = false;
+            }
 
-			GetComponent<Rigidbody2D> ().velocity = new Vector2 (Mathf.Clamp (GetComponent<Rigidbody2D> ().velocity.x, -5, 5), GetComponent<Rigidbody2D> ().velocity.y);
-			isTouchingGround = Physics2D.OverlapCircle (groundCheckPoint.position, -1f, groundLayer);
-			if (isTouchingGround == true && doJump == true && rb.velocity.y == 0) {
-				count = 0;
-				doJump = false;
-
-			}
-
-		}
+        }
 
     }
 
