@@ -74,10 +74,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5a450e05d54ac6f4b816639973d413d7, type: 3}
   - {fileID: 21300000, guid: 848ae37ee06e976498b8cfb5ba4c78c2, type: 3}
   character:
-  - {fileID: 21300000, guid: b3bd3099d35e9a44089614b7f594739a, type: 3}
-  - {fileID: 21300000, guid: 060aec6eccb47a94ea3fdec1ef2e9f5f, type: 3}
-  - {fileID: 21300000, guid: 76eeee4b49da31c47ba4a57e265ee9df, type: 3}
-  - {fileID: 21300000, guid: c0979df2bb037ff47afbb0f83c7bd839, type: 3}
+  - {fileID: 21300000, guid: 1022d0f6a455ab94f9b9a7fb95a5028f, type: 3}
+  - {fileID: 21300000, guid: 1e855b29d2ef68e4c887d5432a0c297a, type: 3}
+  - {fileID: 21300000, guid: f2a9e6dfd864e8f4bb2ee9f8cd0afdf2, type: 3}
+  - {fileID: 21300000, guid: 76dc98be207739d4c98d7a34b759ad2e, type: 3}
   backgrounds:
   - {fileID: 21300000, guid: b6ca20dcb91ca7b4aad7baa09e698743, type: 3}
   - {fileID: 21300000, guid: 86cc061470d77ac40a85dfa2c7a3c668, type: 3}

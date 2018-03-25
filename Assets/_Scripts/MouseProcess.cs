@@ -53,6 +53,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     bool goBack = false;
 
     List<Vector3> lastPositions;
+    GameObject player;
 
     void Start() {
         lastPositions = new List<Vector3>();
@@ -69,6 +70,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             allCartridges.Add(go);
         }
+        player = GameObject.Find("Player");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -266,5 +268,6 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     void ChangeLevel()
     {
         levelManager.ChangeLevel(int.Parse(gameObject.name));
+        player.GetComponent<PlayerController>().ChangeLevel(int.Parse(gameObject.name));
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour {
     public float movementSpeed;
@@ -22,6 +23,22 @@ public class PlayerController : MonoBehaviour {
 	int count = 0;
 	bool isTouchingGround = true;
 	bool AbleToMove = false;
+
+
+    /* character sprites */
+    Sprite zelda_shield;
+
+    enum Character
+    {
+        None,
+        Mario,
+        Zelda,
+        Sonic,
+        Kirby
+    }
+
+    Character currentCharacter;
+
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -70,8 +87,110 @@ public class PlayerController : MonoBehaviour {
 		}
     }
 
-    public void Action()
+    void Fire()
     {
+
+    }
+
+    void Shield()
+    {
+
+    }
+
+    void Sword()
+    {
+
+    }
+
+    void Roll()
+    {
+
+    }
+
+    void Inhale()
+    {
+
+    }
+
+    void Exhale()
+    {
+
+    }
+
+    public void ActionDownUnpressed()
+    {
+        if (currentCharacter == Character.Mario)
+        {
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+        }
+        else if (currentCharacter == Character.Sonic)
+        {
+        }
+        else if (currentCharacter == Character.Kirby)
+        {
+        }
+    }
+
+    public void ActionDownPressed()
+    {
+        if (currentCharacter == Character.Mario)
+        {
+            Fire();
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+            Shield();
+        }
+        else if(currentCharacter == Character.Sonic)
+        {
+            Roll();
+        }
+        else if(currentCharacter == Character.Kirby)
+        {
+            Exhale();
+        }
+    }
+
+    public void ActionUpUnpressed()
+    {
+        Debug.Log("curr " + currentCharacter);
+        if (currentCharacter == Character.Mario)
+        {
+            JumpLetgo();
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+        }
+        else if (currentCharacter == Character.Sonic)
+        {
+            JumpLetgo();
+        }
+        else if (currentCharacter == Character.Kirby)
+        {
+        }
+    }
+
+    public void ActionUpPressed()
+    {
+        Debug.Log("curr " + currentCharacter);
+        if (currentCharacter == Character.Mario)
+        {
+            Jump();
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+            Sword();
+        }
+        else if(currentCharacter == Character.Sonic)
+        {
+            Jump();
+        }
+        else if(currentCharacter == Character.Kirby)
+        {
+            Inhale();
+        }
     }
 
     void OnCollisionStay2D(Collision2D coll)
@@ -114,6 +233,34 @@ public class PlayerController : MonoBehaviour {
             sr.flipX = true;
         else
             sr.flipX = false;
+    }
+
+    public void ChangeLevel(int type)
+    {
+        currentCharacter = (Character)type;
+
+        if (currentCharacter == Character.Mario)
+        {
+            /* adding appropriate event trigger */
+            //EventTrigger evTrigger = GetComponent<EventTrigger>();
+            //EventTrigger.Entry entry = evTrigger.triggers[0];
+            //entry.eventID = EventTriggerType.PointerDown;
+            //GameObject toSet = itemPrefabs[buttonOffset];
+            //entry.callback.AddListener((data) => { gameEditor.ChangeCurrentTile((GameObject)toSet); });
+            //go.GetComponent<Image>().sprite = itemPrefabs[buttonOffset].GetComponent<SpriteRenderer>().sprite;
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+
+        }
+        else if (currentCharacter == Character.Sonic)
+        {
+
+        }
+        else if (currentCharacter == Character.Kirby)
+        {
+
+        }
     }
 
     private void FixedUpdate()
