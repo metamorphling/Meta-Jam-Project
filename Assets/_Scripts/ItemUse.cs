@@ -66,13 +66,8 @@ public class ItemUse : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
 		GameObject.Find ("Editor").GetComponent<GameEditor> ().PlaceTile ();
 
-
-
         if (m_DraggingIcon != null)
             Destroy(m_DraggingIcon);
-
-
-
     }
 
     static public T FindInParents<T>(GameObject go) where T : Component

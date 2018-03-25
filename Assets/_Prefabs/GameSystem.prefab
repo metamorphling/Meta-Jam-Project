@@ -22,13 +22,14 @@ GameObject:
   - component: {fileID: 222015102417470924}
   - component: {fileID: 114393328737328350}
   - component: {fileID: 114640987389634366}
+  - component: {fileID: 114442137691772216}
   m_Layer: 5
   m_Name: Item3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1052140584559050
 GameObject:
   m_ObjectHideFlags: 1
@@ -684,9 +685,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8d0b70e18ac768548b834bfee34f9dac, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -728,6 +729,25 @@ MonoBehaviour:
   insertPlace: {fileID: 224742900021711098}
   levelManager: {fileID: 0}
   animationStatus: 4
+--- !u!114 &114442137691772216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1025418787292276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114470988389427224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -870,19 +890,7 @@ MonoBehaviour:
   - eventID: 2
     callback:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: ChangeCurrentTile
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1975570010089858, guid: de0747e6ae6b8464c974a47097e37130,
-              type: 2}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
@@ -899,7 +907,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
   frame: {fileID: 0}
-  PrefabToSet: {fileID: 0}
+  PrefabToSet: {fileID: 1150715158366152, guid: d552fc521ea07c8429fafbc6a9c92750,
+    type: 2}
 --- !u!114 &114663302775295052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1051,19 +1060,7 @@ MonoBehaviour:
   - eventID: 2
     callback:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: ChangeCurrentTile
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1489239036284918, guid: 8e3c71cfd25393742a17ad68ad73faf7,
-              type: 2}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
@@ -1431,10 +1428,10 @@ RectTransform:
   m_Father: {fileID: 224387067560197664}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 379, y: -20}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 162, y: 108}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224189807902542550
 RectTransform:

@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour {
     public SpriteRenderer player;
     public GameObject inventory;
     public GameObject Environment;
+    public GameEditor gameEditor;
 
     /* array number should match the name of the cartridge, 1-mario,2-zelda,3-sonic,4-kirby */
     public List<Sprite> floorBasic;
@@ -88,7 +89,14 @@ public class LevelManager : MonoBehaviour {
             }
             go.GetComponent<Image>().enabled = true;
             go.GetComponent<ItemUse>().PrefabToSet = itemPrefabs[buttonOffset];
-            //go.GetComponent<EventTrigger>().GetComponent
+
+            /* adding appropriate event trigger */
+            EventTrigger evTrigger = go.GetComponent<EventTrigger>();
+            EventTrigger.Entry entry = evTrigger.triggers[0];
+            entry.eventID = EventTriggerType.PointerDown;
+            GameObject toSet = itemPrefabs[buttonOffset];
+            entry.callback.AddListener((data) => { gameEditor.ChangeCurrentTile((GameObject)toSet); });
+
             go.GetComponent<Image>().sprite = itemPrefabs[buttonOffset].GetComponent<SpriteRenderer>().sprite;
             buttonOffset++;
         }

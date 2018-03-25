@@ -121,7 +121,6 @@ public class PlayerController : MonoBehaviour {
 		if (AbleToMove) {
 			float move = movementSpeed * moveModifier;
 
-
 			if (rb.velocity.y < 0) {
 				rb.velocity += Vector2.up * Physics2D.gravity.y * (FallModifier - 1) * Time.deltaTime;
 			} else if (rb.velocity.y > 0 && !JumpHeld) {

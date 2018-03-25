@@ -57,6 +57,7 @@ MonoBehaviour:
   player: {fileID: 0}
   inventory: {fileID: 0}
   Environment: {fileID: 0}
+  gameEditor: {fileID: 0}
   floorBasic:
   - {fileID: 21300000, guid: 6b80fbeea28e9a245bcc5af38e627c91, type: 3}
   - {fileID: 21300000, guid: 720558dfa4e97814d80e8d3ccf375168, type: 3}
@@ -100,7 +101,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5c7194db8450d244086422d41bef1610, type: 3}
   - {fileID: 21300000, guid: 9a56cf48aa3a6cd4caa62618173038ee, type: 3}
   itemPrefabs:
-  - {fileID: 1975570010089858, guid: de0747e6ae6b8464c974a47097e37130, type: 2}
+  - {fileID: 1489239036284918, guid: 8e3c71cfd25393742a17ad68ad73faf7, type: 2}
   - {fileID: 1150715158366152, guid: 078bfea7fca6ec547a2815d4a5def794, type: 2}
   - {fileID: 1150715158366152, guid: d552fc521ea07c8429fafbc6a9c92750, type: 2}
   - {fileID: 1046380350100522, guid: a9c02e36db854a74c81edf31fbc60c56, type: 2}
