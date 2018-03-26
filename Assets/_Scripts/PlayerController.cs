@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	int count = 0;
 	bool isTouchingGround = true;
 	bool AbleToMove = false;
+    Animator anim;
 
 
     /* character sprites */
@@ -37,11 +38,38 @@ public class PlayerController : MonoBehaviour {
         Kirby
     }
 
+    enum MarioAnimation
+    {
+        Idle = 1,
+        Walk
+    }
+    enum ZeldaAnimation
+    {
+        Idle = 1,
+        Attack,
+        Walk,
+        Block
+    }
+    enum SonicAnimation
+    {
+        Idle = 1,
+        Walk,
+        Roll
+    }
+    enum KirbyAnimation
+    {
+        Idle = 1,
+        Walk,
+        Blow,
+        Suck
+    }
+
     Character currentCharacter;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void Update() {
@@ -55,21 +83,85 @@ public class PlayerController : MonoBehaviour {
     public void MoveLeft()
     {
         moveModifier = -0.2f;
+        if (currentCharacter == Character.Mario)
+        {
+            anim.SetInteger("mario", (int)MarioAnimation.Walk);
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+            anim.SetInteger("zelda", (int)ZeldaAnimation.Walk);
+        }
+        else if (currentCharacter == Character.Sonic)
+        {
+            anim.SetInteger("sonic", (int)SonicAnimation.Walk);
+        }
+        else if (currentCharacter == Character.Kirby)
+        {
+            anim.SetInteger("kirby", (int)KirbyAnimation.Walk);
+        }
     }
 
     public void MoveRight()
     {
         moveModifier = 0.2f;
+        if (currentCharacter == Character.Mario)
+        {
+            anim.SetInteger("mario", (int)MarioAnimation.Walk);
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+            anim.SetInteger("zelda", (int)ZeldaAnimation.Walk);
+        }
+        else if (currentCharacter == Character.Sonic)
+        {
+            anim.SetInteger("sonic", (int)SonicAnimation.Walk);
+        }
+        else if (currentCharacter == Character.Kirby)
+        {
+            anim.SetInteger("kirby", (int)KirbyAnimation.Walk);
+        }
     }
 
     public void MoveUp()
     {
         moveModifier = 0;
+        if (currentCharacter == Character.Mario)
+        {
+            anim.SetInteger("mario", (int)MarioAnimation.Idle);
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+            anim.SetInteger("zelda", (int)ZeldaAnimation.Idle);
+        }
+        else if (currentCharacter == Character.Sonic)
+        {
+            anim.SetInteger("sonic", (int)SonicAnimation.Idle);
+        }
+        else if (currentCharacter == Character.Kirby)
+        {
+            anim.SetInteger("kirby", (int)KirbyAnimation.Idle);
+        }
     }
 
     public void MoveDown()
     {
         moveModifier = 0;
+        if (currentCharacter == Character.Mario)
+        {
+            anim.SetInteger("mario", (int)MarioAnimation.Idle);
+        }
+        else if (currentCharacter == Character.Zelda)
+        {
+            anim.SetInteger("zelda", (int)ZeldaAnimation.Idle);
+        }
+        else if (currentCharacter == Character.Sonic)
+        {
+            anim.SetInteger("sonic", (int)SonicAnimation.Idle);
+        }
+        else if (currentCharacter == Character.Kirby)
+        {
+            anim.SetInteger("kirby", (int)KirbyAnimation.Idle);
+        }
     }
 
     public void Jump()
@@ -177,6 +269,7 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("curr " + currentCharacter);
         if (currentCharacter == Character.Mario)
         {
+            anim.SetTrigger("mario_jump");
             Jump();
         }
         else if (currentCharacter == Character.Zelda)
@@ -185,6 +278,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if(currentCharacter == Character.Sonic)
         {
+            anim.SetTrigger("sonic_jump");
             Jump();
         }
         else if(currentCharacter == Character.Kirby)
@@ -241,25 +335,32 @@ public class PlayerController : MonoBehaviour {
 
         if (currentCharacter == Character.Mario)
         {
-            /* adding appropriate event trigger */
-            //EventTrigger evTrigger = GetComponent<EventTrigger>();
-            //EventTrigger.Entry entry = evTrigger.triggers[0];
-            //entry.eventID = EventTriggerType.PointerDown;
-            //GameObject toSet = itemPrefabs[buttonOffset];
-            //entry.callback.AddListener((data) => { gameEditor.ChangeCurrentTile((GameObject)toSet); });
-            //go.GetComponent<Image>().sprite = itemPrefabs[buttonOffset].GetComponent<SpriteRenderer>().sprite;
+            anim.SetInteger("zelda", 0);
+            anim.SetInteger("sonic", 0);
+            anim.SetInteger("kirby", 0);
+            anim.SetInteger("mario", (int)MarioAnimation.Idle);
+
         }
         else if (currentCharacter == Character.Zelda)
         {
-
+            anim.SetInteger("mario", 0);
+            anim.SetInteger("sonic", 0);
+            anim.SetInteger("kirby", 0);
+            anim.SetInteger("zelda", (int)ZeldaAnimation.Idle);
         }
         else if (currentCharacter == Character.Sonic)
         {
-
+            anim.SetInteger("mario", 0);
+            anim.SetInteger("zelda", 0);
+            anim.SetInteger("kirby", 0);
+            anim.SetInteger("sonic", (int)SonicAnimation.Idle);
         }
         else if (currentCharacter == Character.Kirby)
         {
-
+            anim.SetInteger("mario", 0);
+            anim.SetInteger("zelda", 0);
+            anim.SetInteger("sonic", 0);
+            anim.SetInteger("kirby", (int)KirbyAnimation.Idle);
         }
     }
 
@@ -287,23 +388,35 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    void OnCollisionEnter2D(Collision2D c)
+    {
+	    if (c.gameObject.name == "key")
+        {
+		    HasKey = true;
+		    Destroy (c.gameObject);
 
-	void OnCollisionEnter2D( Collision2D  c)
-	{
-		if (c.gameObject.name == "key") {
-			HasKey = true;
+            GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject obj in array)
+            {
+                obj.GetComponent<EnemyBehaviour>().WakeUp();
+            }
+	    }
 
-			Destroy (c.gameObject);
+        if (c.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
 
-		}
+    private void OnTriggerEnter2D(Collider2D c)
+    {
+        if (c.gameObject.name == "door" && HasKey == true)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
 
-		if (c.gameObject.name == "door" && HasKey == true) {
-
-			UnityEngine.SceneManagement.SceneManager.LoadScene (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
-		}
-	}
-
-	public void AllowMovement()
+    public void AllowMovement()
 	{
 		AbleToMove = true;
 	}
