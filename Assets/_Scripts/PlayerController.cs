@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
 	bool isTouchingGround = true;
 	bool AbleToMove = false;
     Animator anim;
-
+    public float sonicImpulse = 30f;
 
     /* character sprites */
     Sprite zelda_shield;
@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour {
     /* abilities/inventory */
     BoxCollider2D shieldCollider, attackCollider;
     int last_status;
+    bool isRolling = false;
+    bool isShielded = false;
+    Collider2D sonicCollider;
 
     enum Character
     {
@@ -77,6 +80,7 @@ public class PlayerController : MonoBehaviour {
         anim = GetComponent<Animator>();
         shieldCollider = transform.GetChild(1).GetComponent<BoxCollider2D>();
         attackCollider = transform.GetChild(2).GetComponent<BoxCollider2D>();
+        sonicCollider = GetComponent<CircleCollider2D>();
     }
 
     void Update() {
@@ -197,6 +201,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (press == true)
         {
+            isShielded = true;
             if (spriteIsRight == false)
                 shieldCollider.offset -= new Vector2(1.3f,0);
             shieldCollider.enabled = true;
@@ -208,6 +213,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
+            isShielded = false;
             if (spriteIsRight == false)
                 shieldCollider.offset += new Vector2(1.3f, 0);
             anim.SetInteger("zelda", last_status);
@@ -226,9 +232,13 @@ public class PlayerController : MonoBehaviour {
             attackCollider.offset += new Vector2(2, 0);
     }
 
-    void Roll()
+    IEnumerator Roll()
     {
-
+        anim.SetInteger("sonic", (int)SonicAnimation.Roll);
+        yield return new WaitForSeconds(0.5f);
+        isRolling = true;
+        sonicCollider.enabled = true;
+        rb.AddForce(new Vector2(sonicImpulse, 0), ForceMode2D.Impulse);
     }
 
     void Inhale()
@@ -270,7 +280,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if(currentCharacter == Character.Sonic)
         {
-            Roll();
+            StartCoroutine("Roll");
         }
         else if(currentCharacter == Character.Kirby)
         {
@@ -400,6 +410,17 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        if (isRolling == true)
+        {
+            if (rb.velocity == Vector2.zero)
+            {
+                isRolling = false;
+                anim.SetInteger("sonic", (int)SonicAnimation.Idle);
+                sonicCollider.enabled = false;
+            }
+            return;
+        }
+
 		if (AbleToMove) {
 			float move = movementSpeed * moveModifier;
 
@@ -449,7 +470,12 @@ public class PlayerController : MonoBehaviour {
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
         }
 
-        if (c.gameObject.tag == "Enemy")
+        if (c.gameObject.tag == "Enemy" && isShielded == true)
+        {
+            Destroy(c.gameObject);
+        }
+
+        if (c.gameObject.tag == "Wall" && isRolling == true)
         {
             Destroy(c.gameObject);
         }
