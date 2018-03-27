@@ -20,6 +20,8 @@ public class ItemUse : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+
+		GameObject.Find ("Editor").GetComponent<GameEditor> ().ChangeCurrentTile (PrefabToSet);
         m_DraggingIcon = new GameObject("icon");
 
         m_DraggingIcon.transform.SetParent(frame.transform, false);
