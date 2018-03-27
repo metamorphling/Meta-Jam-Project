@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public float movementSpeed;
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour {
 	bool isTouchingGround = true;
 	bool AbleToMove = false;
     Animator anim;
-    public float sonicImpulse = 30f;
+    public float sonicImpulse = 30f, kirbyImpulse = 13f;
 
     /* character sprites */
     Sprite zelda_shield;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour {
     bool isRolling = false;
     bool isShielded = false;
     Collider2D sonicCollider;
+    bool isKilled = false;
 
     enum Character
     {
@@ -243,7 +245,8 @@ public class PlayerController : MonoBehaviour {
 
     void Inhale()
     {
-
+        rb.gravityScale = 0.3f;
+        rb.AddForce(new Vector2(0, kirbyImpulse), ForceMode2D.Impulse);
     }
 
     void Exhale()
@@ -328,6 +331,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if(currentCharacter == Character.Kirby)
         {
+            anim.SetTrigger("kirby_inhale");
             Inhale();
         }
     }
@@ -410,6 +414,11 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        if (isKilled == true)
+        {
+            transform.Rotate(Vector3.forward * 20);
+            return;
+        }
         if (isRolling == true)
         {
             if (rb.velocity == Vector2.zero)
@@ -421,7 +430,13 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
-		if (AbleToMove) {
+        if (currentCharacter == Character.Kirby && rb.gravityScale !=1)
+        {
+            rb.gravityScale = 1;
+        }
+
+
+        if (AbleToMove) {
 			float move = movementSpeed * moveModifier;
 
 			if (rb.velocity.y < 0) {
@@ -459,7 +474,7 @@ public class PlayerController : MonoBehaviour {
 
         if (c.gameObject.tag == "Enemy")
         {
-            Destroy(gameObject);
+            Killed();
         }
     }
 
@@ -479,6 +494,22 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(c.gameObject);
         }
+    }
+
+    IEnumerator RestartLevel()
+    {
+        GameObject gl = GameObject.Find("Glitch");
+        yield return new WaitForSeconds(2f);
+        gl.GetComponent<Animator>().SetTrigger("playGlitch");
+        yield return new WaitForSeconds(0.3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void Killed()
+    {
+        isKilled = true;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        StartCoroutine("RestartLevel");
     }
 
     public void AllowMovement()

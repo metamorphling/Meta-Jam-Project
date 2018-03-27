@@ -1565,26 +1565,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 2}
   m_EdgeRadius: 0
---- !u!1 &886025721 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1658771498379924, guid: e0983d3d8d9417d47a3d6ab236247196,
-    type: 2}
-  m_PrefabInternal: {fileID: 989771068}
---- !u!58 &886025726
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 886025721}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1.5
 --- !u!1001 &886031266
 Prefab:
   m_ObjectHideFlags: 0
@@ -1823,55 +1803,6 @@ Prefab:
     - target: {fileID: 4573995099541820, guid: e0983d3d8d9417d47a3d6ab236247196, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 61515896310643858, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: -0.026171088
-      objectReference: {fileID: 0}
-    - target: {fileID: 61515896310643858, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 1.7639716
-      objectReference: {fileID: 0}
-    - target: {fileID: 61515896310643858, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: -0.012115002
-      objectReference: {fileID: 0}
-    - target: {fileID: 61515896310643858, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 0.83710766
-      objectReference: {fileID: 0}
-    - target: {fileID: 61733924352288480, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61733924352288480, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 61733924352288480, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: 0.37092853
-      objectReference: {fileID: 0}
-    - target: {fileID: 61733924352288480, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 1.741857
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071348463203416, guid: e0983d3d8d9417d47a3d6ab236247196, type: 2}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
-    - target: {fileID: 61515896310643858, guid: e0983d3d8d9417d47a3d6ab236247196,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0983d3d8d9417d47a3d6ab236247196, type: 2}
@@ -2120,22 +2051,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4707074733823042, guid: fecfabd99919b534fb1442828e3266a1,
     type: 2}
   m_PrefabInternal: {fileID: 1310417074}
---- !u!1 &1356832933 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1071348463203416, guid: e0983d3d8d9417d47a3d6ab236247196,
-    type: 2}
-  m_PrefabInternal: {fileID: 989771068}
---- !u!114 &1356832935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1356832933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd84496b1325db4bb4a42bcf1042064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1414927559
 Prefab:
   m_ObjectHideFlags: 0
@@ -2753,22 +2668,6 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 212401350603676092, guid: e0983d3d8d9417d47a3d6ab236247196,
     type: 2}
   m_PrefabInternal: {fileID: 989771068}
---- !u!1 &1857670402 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1568989357335310, guid: e0983d3d8d9417d47a3d6ab236247196,
-    type: 2}
-  m_PrefabInternal: {fileID: 989771068}
---- !u!114 &1857670404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1857670402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7570f94818c8bc4aa9c218b1628f041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1891989464 stripped
 SpriteRenderer:
   m_PrefabParentObject: {fileID: 212500477878552626, guid: 524c45e244b6cdd4b9beabd2ed6ea81f,
