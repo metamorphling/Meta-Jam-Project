@@ -25,6 +25,18 @@ public class EnemyBehaviour : MonoBehaviour {
         }
     }
 
+    IEnumerator explode()
+    {
+        anim.SetTrigger("monster_die");
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
+    }
+
+    public void Die()
+    {
+        StartCoroutine("explode");
+    }
+
     public void WakeUp()
     {
         isWokenUp = true;

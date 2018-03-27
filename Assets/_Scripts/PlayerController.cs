@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour {
     /* character sprites */
     Sprite zelda_shield;
 
+    /* abilities/inventory */
+    BoxCollider2D shieldCollider, attackCollider;
+    int last_status;
+
     enum Character
     {
         None,
@@ -47,8 +51,9 @@ public class PlayerController : MonoBehaviour {
     {
         Idle = 1,
         Attack,
+        Block,
         Walk,
-        Block
+        BlockStand
     }
     enum SonicAnimation
     {
@@ -70,6 +75,8 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        shieldCollider = transform.GetChild(1).GetComponent<BoxCollider2D>();
+        attackCollider = transform.GetChild(2).GetComponent<BoxCollider2D>();
     }
 
     void Update() {
@@ -82,6 +89,7 @@ public class PlayerController : MonoBehaviour {
 
     public void MoveLeft()
     {
+        spriteIsRight = false;
         moveModifier = -0.2f;
         if (currentCharacter == Character.Mario)
         {
@@ -103,6 +111,7 @@ public class PlayerController : MonoBehaviour {
 
     public void MoveRight()
     {
+        spriteIsRight = true;
         moveModifier = 0.2f;
         if (currentCharacter == Character.Mario)
         {
@@ -184,14 +193,37 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void Shield()
+    void Shield(bool press)
     {
-
+        if (press == true)
+        {
+            if (spriteIsRight == false)
+                shieldCollider.offset -= new Vector2(1.3f,0);
+            shieldCollider.enabled = true;
+            last_status = anim.GetInteger("zelda");
+            if (moveModifier != 0)
+                anim.SetInteger("zelda", (int)ZeldaAnimation.Block);
+            else
+                anim.SetInteger("zelda", (int)ZeldaAnimation.BlockStand);
+        }
+        else
+        {
+            if (spriteIsRight == false)
+                shieldCollider.offset += new Vector2(1.3f, 0);
+            anim.SetInteger("zelda", last_status);
+            shieldCollider.enabled = false;
+        }
     }
 
-    void Sword()
+    IEnumerator Sword()
     {
-
+        if (spriteIsRight == false)
+            attackCollider.offset -= new Vector2(2, 0);
+        attackCollider.enabled = true;
+        yield return new WaitForSeconds(0.3f);
+        attackCollider.enabled = false;
+        if (spriteIsRight == false)
+            attackCollider.offset += new Vector2(2, 0);
     }
 
     void Roll()
@@ -216,6 +248,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (currentCharacter == Character.Zelda)
         {
+            Shield(false);
         }
         else if (currentCharacter == Character.Sonic)
         {
@@ -233,7 +266,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (currentCharacter == Character.Zelda)
         {
-            Shield();
+            Shield(true);
         }
         else if(currentCharacter == Character.Sonic)
         {
@@ -254,6 +287,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (currentCharacter == Character.Zelda)
         {
+
         }
         else if (currentCharacter == Character.Sonic)
         {
@@ -274,7 +308,8 @@ public class PlayerController : MonoBehaviour {
         }
         else if (currentCharacter == Character.Zelda)
         {
-            Sword();
+            anim.SetTrigger("zelda_attack");
+            StartCoroutine("Sword");
         }
         else if(currentCharacter == Character.Sonic)
         {
@@ -322,7 +357,6 @@ public class PlayerController : MonoBehaviour {
 
     void ProcessSprite()
     {
-        spriteIsRight = rb.velocity.x >= 0 ? true : false;
         if (spriteIsRight == false)
             sr.flipX = true;
         else
@@ -413,6 +447,11 @@ public class PlayerController : MonoBehaviour {
         if (c.gameObject.name == "door" && HasKey == true)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        if (c.gameObject.tag == "Enemy")
+        {
+            Destroy(c.gameObject);
         }
     }
 
