@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour {
 	bool JumpHeld = false;
 	public Transform groundCheckPoint;
 	public LayerMask groundLayer;
+    public GameObject marioFire;
+
     float inputAxis;
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -35,7 +37,8 @@ public class PlayerController : MonoBehaviour {
     int last_status;
     bool isRolling = false;
     bool isShielded = false;
-    Collider2D sonicCollider;
+    Collider2D sonicCollider, blowCollider;
+    float shieldOffset, attackOffset, blowOffset;
     bool isKilled = false;
 
     enum Character
@@ -82,6 +85,10 @@ public class PlayerController : MonoBehaviour {
         anim = GetComponent<Animator>();
         shieldCollider = transform.GetChild(1).GetComponent<BoxCollider2D>();
         attackCollider = transform.GetChild(2).GetComponent<BoxCollider2D>();
+        blowCollider = transform.GetChild(3).GetComponent<BoxCollider2D>();
+        shieldOffset = shieldCollider.offset.x;
+        attackOffset = attackCollider.offset.x;
+        blowOffset = blowCollider.offset.x;
         sonicCollider = GetComponent<CircleCollider2D>();
     }
 
@@ -196,7 +203,19 @@ public class PlayerController : MonoBehaviour {
 
     void Fire()
     {
-
+        GameObject obj = Instantiate(marioFire);
+        if (spriteIsRight)
+        {
+            obj.transform.position = transform.position + Vector3.right * 1f;
+            obj.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 10f, ForceMode2D.Impulse);
+            obj.GetComponent<FireBehaviour>().IsRight(true);
+        }
+        else
+        {
+            obj.transform.position = transform.position - Vector3.right * 1f;
+            obj.GetComponent<Rigidbody2D>().AddForce(-Vector2.right * 10f, ForceMode2D.Impulse);
+            obj.GetComponent<FireBehaviour>().IsRight(false);
+        }
     }
 
     void Shield(bool press)
@@ -205,7 +224,9 @@ public class PlayerController : MonoBehaviour {
         {
             isShielded = true;
             if (spriteIsRight == false)
-                shieldCollider.offset -= new Vector2(1.3f,0);
+                shieldCollider.offset = new Vector2(shieldOffset - 1.3f,0);
+            else
+                shieldCollider.offset = new Vector2(shieldOffset, 0);
             shieldCollider.enabled = true;
             last_status = anim.GetInteger("zelda");
             if (moveModifier != 0)
@@ -217,7 +238,9 @@ public class PlayerController : MonoBehaviour {
         {
             isShielded = false;
             if (spriteIsRight == false)
-                shieldCollider.offset += new Vector2(1.3f, 0);
+                shieldCollider.offset = new Vector2(shieldOffset - 1.3f, 0);
+            else
+                shieldCollider.offset = new Vector2(shieldOffset, 0);
             anim.SetInteger("zelda", last_status);
             shieldCollider.enabled = false;
         }
@@ -226,12 +249,12 @@ public class PlayerController : MonoBehaviour {
     IEnumerator Sword()
     {
         if (spriteIsRight == false)
-            attackCollider.offset -= new Vector2(2, 0);
+            attackCollider.offset = new Vector2(attackOffset - 2, 0);
+        else
+            attackCollider.offset = new Vector2(attackOffset, 0);
         attackCollider.enabled = true;
         yield return new WaitForSeconds(0.3f);
         attackCollider.enabled = false;
-        if (spriteIsRight == false)
-            attackCollider.offset += new Vector2(2, 0);
     }
 
     IEnumerator Roll()
@@ -249,9 +272,17 @@ public class PlayerController : MonoBehaviour {
         rb.AddForce(new Vector2(0, kirbyImpulse), ForceMode2D.Impulse);
     }
 
-    void Exhale()
+    IEnumerator Exhale()
     {
-
+        moveModifier = 0;
+        if (spriteIsRight == false)
+            blowCollider.offset = new Vector2(blowOffset - 2.6f, 0);
+        else
+            blowCollider.offset = new Vector2(blowOffset, 0);
+        blowCollider.enabled = true;
+        anim.SetTrigger("kirby_exhale");
+        yield return new WaitForSeconds(1f);
+        blowCollider.enabled = false;
     }
 
     public void ActionDownUnpressed()
@@ -287,7 +318,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if(currentCharacter == Character.Kirby)
         {
-            Exhale();
+            StartCoroutine("Exhale");
         }
     }
 
@@ -482,7 +513,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (c.gameObject.name == "door" && HasKey == true)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
+            StartCoroutine("NextLevel");
         }
 
         if (c.gameObject.tag == "Enemy" && isShielded == true)
@@ -494,6 +525,12 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(c.gameObject);
         }
+
+        if (c.gameObject.tag == "Flower")
+        {
+            GetComponent<Animator>().SetBool("mario_fire", true);
+            Destroy(c.gameObject);
+        }
     }
 
     IEnumerator RestartLevel()
@@ -503,6 +540,14 @@ public class PlayerController : MonoBehaviour {
         gl.GetComponent<Animator>().SetTrigger("playGlitch");
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator NextLevel()
+    {
+        GameObject gl = GameObject.Find("Glitch");
+        gl.GetComponent<Animator>().SetTrigger("playGlitch");
+        yield return new WaitForSeconds(0.3f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void Killed()

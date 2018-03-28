@@ -8,6 +8,7 @@ public class EnemyBehaviour : MonoBehaviour {
     public float attackStrengthY = 10f;
     public GameObject projectile;
     bool isWokenUp = false;
+    bool isDying = false;
     Animator anim;
 
 	void Start () {
@@ -16,7 +17,7 @@ public class EnemyBehaviour : MonoBehaviour {
 
     IEnumerator attack()
     {
-        while (true)
+        while (isDying == false)
         {
             yield return new WaitForSeconds(attackPeriodicity);
             GameObject obj = Instantiate(projectile);
@@ -34,13 +35,21 @@ public class EnemyBehaviour : MonoBehaviour {
 
     public void Die()
     {
+        isDying = true;
         StartCoroutine("explode");
     }
 
     public void WakeUp()
     {
         isWokenUp = true;
+        gameObject.layer = 0;
         anim.SetBool("monster_attack", true);
         StartCoroutine("attack");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Damage")
+            StartCoroutine("explode");
     }
 }

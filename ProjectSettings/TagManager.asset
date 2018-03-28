@@ -7,6 +7,9 @@ TagManager:
   - Bomb
   - Wall
   - Enemy
+  - Flower
+  - Blow
+  - Damage
   layers:
   - Default
   - TransparentFX

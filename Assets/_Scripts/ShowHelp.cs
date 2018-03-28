@@ -7,14 +7,6 @@ public class ShowHelp : MonoBehaviour {
 
     public Image img;
 
-	void Start () {
-		
-	}
-	
-	void Update () {
-		
-	}
-
     public void ShowImg()
     {
         img.enabled = true;

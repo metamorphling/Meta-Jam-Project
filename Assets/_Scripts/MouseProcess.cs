@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -54,6 +55,14 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     List<Vector3> lastPositions;
     GameObject player;
+
+    IEnumerator RestartLevel()
+    {
+        GameObject gl = GameObject.Find("Glitch");
+        gl.GetComponent<Animator>().SetTrigger("playGlitch");
+        yield return new WaitForSeconds(0.3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     void Start() {
         lastPositions = new List<Vector3>();
@@ -114,6 +123,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             }
         }
 
+        transform.GetComponent<Animator>().SetTrigger("start");
         lastPositions.Add(origPos);
         animationStatus = CartridgeStatus.Arc;
         currentLerpTime = 0;
@@ -182,6 +192,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 transform.SetSiblingIndex(siblingIndex);
                 animationStatus = CartridgeStatus.None;
                 goBack = false;
+                StartCoroutine("RestartLevel");
             }
         }
     }
