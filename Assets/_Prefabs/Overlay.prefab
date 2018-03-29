@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224693889481225380}
   - component: {fileID: 222969555655618452}
   - component: {fileID: 114989208714715468}
+  - component: {fileID: 114299557540872550}
   m_Layer: 5
   m_Name: CartridgeHelpImage
   m_TagString: Untagged
@@ -94,7 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 114989208714715468}
-  btn: {fileID: 0}
 --- !u!114 &114188595631928176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,6 +132,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114299557540872550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1137018143471110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30055a1312d47bb4e8a96efc67154b59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  img: {fileID: 114989208714715468}
 --- !u!114 &114371019411532138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,7 +176,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '?'
+  m_Text: 
 --- !u!114 &114673287178224444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,9 +248,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 913738a93f45bb44da55d96026c60d0d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7defbeeb2d424946b535216f543e723, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -325,8 +337,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -11.5, y: -42.399902}
-  m_SizeDelta: {x: 130, y: 130}
+  m_AnchoredPosition: {x: 4, y: -42.399902}
+  m_SizeDelta: {x: 155.52, y: 155.52}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &224693889481225380
 RectTransform:

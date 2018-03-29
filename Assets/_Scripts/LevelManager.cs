@@ -34,17 +34,17 @@ public class LevelManager : MonoBehaviour {
     void UpdateSprites(int updateTo)
     {
         updateTo--;
-        foreach (SpriteRenderer go in floorSprites)
+        foreach (SpriteRenderer gof in floorSprites)
         {
-            go.sprite = floorBasic[updateTo];
+            gof.sprite = floorBasic[updateTo];
         }
-        foreach (SpriteRenderer go in wallSprites)
+        foreach (SpriteRenderer gow in wallSprites)
         {
-            go.sprite = wallBasic[updateTo];
+            gow.sprite = wallBasic[updateTo];
         }
-        foreach (SpriteRenderer go in springSprites)
+        foreach (SpriteRenderer gos in springSprites)
         {
-            go.sprite = springBasic[updateTo];
+            gos.sprite = springBasic[updateTo];
         }
         player.sprite = character[updateTo];
         levelBackground.sprite = backgrounds[updateTo];
@@ -109,20 +109,34 @@ public class LevelManager : MonoBehaviour {
     } 
 
 	void Start () {
+        Transform tr1, tr2, tr3;
         floorSprites = new List<SpriteRenderer>();
-        foreach (SpriteRenderer go in Environment.transform.GetChild(0).GetComponentsInChildren<SpriteRenderer>())
+        int childCount = Environment.transform.childCount;
+        if (childCount >= 1)
         {
-            floorSprites.Add(go);
+            tr1 = Environment.transform.GetChild(0);
+            foreach (SpriteRenderer go in tr1.GetComponentsInChildren<SpriteRenderer>())
+            {
+                floorSprites.Add(go);
+            }
         }
         wallSprites = new List<SpriteRenderer>();
-        foreach (SpriteRenderer go in Environment.transform.GetChild(1).GetComponentsInChildren<SpriteRenderer>())
+        if (childCount >= 2)
         {
-            wallSprites.Add(go);
+            tr2 = Environment.transform.GetChild(1);
+            foreach (SpriteRenderer go in tr2.GetComponentsInChildren<SpriteRenderer>())
+            {
+                wallSprites.Add(go);
+            }
         }
         springSprites = new List<SpriteRenderer>();
-        foreach (SpriteRenderer go in Environment.transform.GetChild(2).GetComponentsInChildren<SpriteRenderer>())
+        if (childCount >= 3)
         {
-            springSprites.Add(go);
+            tr3 = Environment.transform.GetChild(2);
+            foreach (SpriteRenderer go in tr3.GetComponentsInChildren<SpriteRenderer>())
+            {
+                springSprites.Add(go);
+            }
         }
         buttonSprites = new List<Image>();
         foreach (Image go in controller.transform.GetChild(0).GetChild(0).GetComponentsInChildren<Image>())

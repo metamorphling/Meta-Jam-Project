@@ -491,18 +491,6 @@ public class PlayerController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D c)
     {
-	    if (c.gameObject.name == "key")
-        {
-		    HasKey = true;
-		    Destroy (c.gameObject);
-
-            GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject obj in array)
-            {
-                obj.GetComponent<EnemyBehaviour>().WakeUp();
-            }
-	    }
-
         if (c.gameObject.tag == "Enemy")
         {
             Killed();
@@ -511,6 +499,20 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D c)
     {
+        if (c.gameObject.name == "key")
+        {
+            HasKey = true;
+            Destroy(c.gameObject);
+            DoorBehaviour door = GameObject.Find("door").GetComponent<DoorBehaviour>();
+            door.OpenDoor();
+
+            GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject obj in array)
+            {
+                obj.GetComponent<EnemyBehaviour>().WakeUp();
+            }
+        }
+
         if (c.gameObject.name == "door" && HasKey == true)
         {
             StartCoroutine("NextLevel");
@@ -523,7 +525,7 @@ public class PlayerController : MonoBehaviour {
 
         if (c.gameObject.tag == "Wall" && isRolling == true)
         {
-            Destroy(c.gameObject);
+            c.gameObject.GetComponent<BrickBehaviour>().Break();
         }
 
         if (c.gameObject.tag == "Flower")

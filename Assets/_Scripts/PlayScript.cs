@@ -20,8 +20,4 @@ public class PlayScript : MonoBehaviour {
             bomb.GetComponent<BombScript>().StartBlow();
         }
     }
-	
-	void Update () {
-		
-	}
 }

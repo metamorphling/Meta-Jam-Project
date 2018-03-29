@@ -56,14 +56,6 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     List<Vector3> lastPositions;
     GameObject player;
 
-    IEnumerator RestartLevel()
-    {
-        GameObject gl = GameObject.Find("Glitch");
-        gl.GetComponent<Animator>().SetTrigger("playGlitch");
-        yield return new WaitForSeconds(0.3f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
     void Start() {
         lastPositions = new List<Vector3>();
         origPos = transform.position;
@@ -192,7 +184,6 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 transform.SetSiblingIndex(siblingIndex);
                 animationStatus = CartridgeStatus.None;
                 goBack = false;
-                StartCoroutine("RestartLevel");
             }
         }
     }
@@ -214,6 +205,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             {
                 inventory.StartSlideOut();
                 animationStatus = CartridgeStatus.Inserted;
+                gameSystemBG.GetComponent<Animator>().SetTrigger("start");
                 ChangeLevel();
             } else
             {

@@ -22,6 +22,9 @@ GameObject:
   - component: {fileID: 212856406229919366}
   - component: {fileID: 61076535345908600}
   - component: {fileID: 61480975311250140}
+  - component: {fileID: 114199665473875268}
+  - component: {fileID: 95661281981028726}
+  - component: {fileID: 114576660243029884}
   m_Layer: 0
   m_Name: spring_kirby
   m_TagString: Untagged
@@ -92,6 +95,49 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 0.5548935}
   m_EdgeRadius: 0
+--- !u!95 &95661281981028726
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332156930943408}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 20620067fc1eac7489617b9485f11669, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114199665473875268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332156930943408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca0709a758df1f4f929b483f5b925cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressed: {fileID: 0}
+  unpressed: {fileID: 0}
+--- !u!114 &114576660243029884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332156930943408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca0709a758df1f4f929b483f5b925cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressed: {fileID: 21300000, guid: 1b23205dbbf482b40bd366076dc7ec7d, type: 3}
+  unpressed: {fileID: 21300000, guid: 38c73bdee45ea244c851de0c6444ed60, type: 3}
 --- !u!212 &212856406229919366
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -19,6 +19,7 @@ public class BlowBehaviour : MonoBehaviour {
             Rigidbody2D obj = collision.GetComponent<Rigidbody2D>();
             if (obj.velocity.x > 0 || obj.velocity.x < 0)
             {
+                obj.GetComponent<SpriteRenderer>().flipX = true;
                 obj.velocity = -obj.velocity;
                 obj.tag = "Damage";
             }

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50154490399692626}
   - component: {fileID: 58049573824895958}
   - component: {fileID: 114962958400594930}
+  - component: {fileID: 95504139945109288}
   m_Layer: 0
   m_Name: bomb_zelda
   m_TagString: Bomb
@@ -104,6 +105,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &95504139945109288
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1046380350100522}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a81540120f3a81c4eb5ef837dce7bc1d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114962958400594930
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -17,10 +17,12 @@ public class BombScript : MonoBehaviour {
         foreach (Collider2D go in res)
         {
             if (go.gameObject && go.gameObject.tag == "Wall")
-                Destroy(go.gameObject);
+                go.gameObject.GetComponent<BrickBehaviour>().Break();
             if (counter++ >= limit)
                 break;
         }
+        GetComponent<Animator>().SetTrigger("explode");
+        yield return new WaitForSeconds(0.4f);
         Destroy(gameObject);
     }
 

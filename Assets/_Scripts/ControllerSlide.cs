@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ControllerSlide : MonoBehaviour {
@@ -48,6 +49,14 @@ public class ControllerSlide : MonoBehaviour {
         StartCoroutine("TimedSliding");
     }
 
+    IEnumerator RestartLevel()
+    {
+        GameObject gl = GameObject.Find("Glitch");
+        gl.GetComponent<Animator>().SetTrigger("playGlitch");
+        yield return new WaitForSeconds(0.3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     void Sliding()
     {
         currentLerpTime += Time.deltaTime;
@@ -64,7 +73,10 @@ public class ControllerSlide : MonoBehaviour {
         {
             sliding = false;
             if (isPlaying == true)
+            {
                 isPlaying = false;
+                StartCoroutine("RestartLevel");
+            }
             else
                 isPlaying = true;
         }

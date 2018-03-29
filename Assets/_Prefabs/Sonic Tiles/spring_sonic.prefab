@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212392419749316436}
   - component: {fileID: 61476559556621586}
   - component: {fileID: 61289408921048948}
+  - component: {fileID: 114056431773509706}
   m_Layer: 9
   m_Name: spring_sonic
   m_TagString: Untagged
@@ -92,6 +93,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 0.5548935}
   m_EdgeRadius: 0
+--- !u!114 &114056431773509706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814049874314030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca0709a758df1f4f929b483f5b925cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressed: {fileID: 21300000, guid: 73ddb4817e3949e43a8cefbb3f60324e, type: 3}
+  unpressed: {fileID: 21300000, guid: 3b8b49da311e89d43968720b03831423, type: 3}
 --- !u!212 &212392419749316436
 SpriteRenderer:
   m_ObjectHideFlags: 1

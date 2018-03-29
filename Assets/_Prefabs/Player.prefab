@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4990894399062034}
   - component: {fileID: 61515896310643858}
+  - component: {fileID: 114625691508021392}
   m_Layer: 0
   m_Name: Blow
-  m_TagString: Wall
+  m_TagString: Blow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -340,6 +341,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbd84496b1325db4bb4a42bcf1042064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114625691508021392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1071348463203416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5006140f880fcd84eba28540d81455dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114879344511709884

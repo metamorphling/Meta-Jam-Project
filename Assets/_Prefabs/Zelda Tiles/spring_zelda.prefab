@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212833163909000784}
   - component: {fileID: 61566203791266242}
   - component: {fileID: 61227296591642480}
+  - component: {fileID: 114788008825497098}
   m_Layer: 0
   m_Name: spring_zelda
   m_TagString: Untagged
@@ -92,6 +93,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2728882, y: 0.4822235}
   m_EdgeRadius: 0
+--- !u!114 &114788008825497098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969558634183580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca0709a758df1f4f929b483f5b925cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressed: {fileID: 21300000, guid: 60cf6a60024ba024394202d14d8cff8e, type: 3}
+  unpressed: {fileID: 21300000, guid: 0a94f63e744dd2849b3047b00f967e3d, type: 3}
 --- !u!212 &212833163909000784
 SpriteRenderer:
   m_ObjectHideFlags: 1

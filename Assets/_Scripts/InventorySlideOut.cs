@@ -43,10 +43,18 @@ public class InventorySlideOut : MonoBehaviour {
     public void StartSlideOut()
     {
         currentLerpTime = 0;
+        transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = true;
         startPos = transform.position;
         endPos = origPos - transform.right * inventorySize;
         animationStatus = Status.Editing;
         sliding = true;
+    }
+
+    IEnumerator PlayToEdit()
+    {
+        yield return new WaitForSeconds(0.6f);
+        Animator anim = transform.GetChild(0).GetComponent<Animator>();
+        anim.SetTrigger("change");
     }
 
     public void PressPlay()
@@ -56,6 +64,7 @@ public class InventorySlideOut : MonoBehaviour {
         if (animationStatus == Status.Editing)
         {
             animationStatus = Status.Playing;
+            StartCoroutine("PlayToEdit");
             endPos = origPos - transform.right * playSize * 1.1f;
         } else if (animationStatus == Status.Playing)
         {
