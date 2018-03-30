@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour {
     public List<Sprite> backgrounds;
     public List<Sprite> buttons;
     public List<GameObject> itemPrefabs;
+    public AudioClip glitchSound;
 
     List<SpriteRenderer> floorSprites;
     List<SpriteRenderer> wallSprites;
@@ -29,7 +30,7 @@ public class LevelManager : MonoBehaviour {
     List<SpriteRenderer> characterSprites;
     List<Image> buttonSprites;
     List<GameObject> inventoryItems;
-
+    AudioSource currentTheme;
 
     void UpdateSprites(int updateTo)
     {
@@ -101,14 +102,33 @@ public class LevelManager : MonoBehaviour {
             buttonOffset++;
         }
     }
-    
-    public void ChangeLevel(int world)
+
+    IEnumerator playTheme(AudioClip theme)
     {
+        yield return new WaitForSeconds(1f);
+        currentTheme.clip = theme;
+        currentTheme.Play();
+    }
+
+    public void PlayGlitchSound()
+    {
+        currentTheme.clip = glitchSound;
+        currentTheme.Play();
+    }
+    
+    public void ChangeLevel(int world, AudioClip theme)
+    {
+        currentTheme.Stop();
+        PlayGlitchSound();
         glitchAnimator.SetTrigger("playGlitch");
+        StartCoroutine("playTheme", theme);
         UpdateSprites(world);
     } 
 
 	void Start () {
+
+        currentTheme = gameObject.AddComponent<AudioSource>();
+
         Transform tr1, tr2, tr3;
         floorSprites = new List<SpriteRenderer>();
         int childCount = Environment.transform.childCount;

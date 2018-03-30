@@ -21,6 +21,7 @@ public class EnemyBehaviour : MonoBehaviour {
         {
             yield return new WaitForSeconds(attackPeriodicity);
             GameObject obj = Instantiate(projectile);
+
             obj.transform.position = transform.position;
             obj.GetComponent<Rigidbody2D>().velocity += new Vector2(attackStrengthX, attackStrengthY);
         }

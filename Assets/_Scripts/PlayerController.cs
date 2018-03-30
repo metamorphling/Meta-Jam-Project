@@ -40,6 +40,15 @@ public class PlayerController : MonoBehaviour {
     Collider2D sonicCollider, blowCollider;
     float shieldOffset, attackOffset, blowOffset;
     bool isKilled = false;
+    GameObject pipeEnter = null;
+    bool marioGoPipe = false;
+    bool marioDown = true;
+    float marioGoTime = 0, marioMaxTime = 1f;
+    Vector2 startPos, endPos;
+
+    /* sounds */
+    public AudioClip keyFound, Jump1, Jump2, zeldaSword1, zeldaSword2, zeldaShield, kirbyFloat, kirbyShoot, gameOver, pipe;
+    AudioSource au;
 
     enum Character
     {
@@ -90,6 +99,7 @@ public class PlayerController : MonoBehaviour {
         attackOffset = attackCollider.offset.x;
         blowOffset = blowCollider.offset.x;
         sonicCollider = GetComponent<CircleCollider2D>();
+        au = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -171,6 +181,17 @@ public class PlayerController : MonoBehaviour {
         if (currentCharacter == Character.Mario)
         {
             anim.SetInteger("mario", (int)MarioAnimation.Idle);
+            if (pipeEnter != null)
+            {
+                startPos = transform.position;
+                endPos = transform.position - transform.up * Mathf.Abs(transform.position.y - Mathf.Abs(transform.localScale.y * GetComponent<SpriteRenderer>().sprite.bounds.size.y));
+                marioGoPipe = true;
+                marioDown = true;
+                GetComponent<SpriteRenderer>().sortingOrder = -60;
+                GetComponent<CapsuleCollider2D>().enabled = false;
+                au.clip = pipe;
+                au.Play();
+            }
         }
         else if (currentCharacter == Character.Zelda)
         {
@@ -190,7 +211,14 @@ public class PlayerController : MonoBehaviour {
     {
 		if (count < 1 && !doJump) {
 			{
-				GetComponent<Rigidbody2D> ().velocity = new Vector2 (GetComponent<Rigidbody2D> ().velocity.x, jumpForce);
+                int rand = Random.Range(0,2);
+                if (rand == 0)
+                    au.clip = Jump1;
+                else
+                    au.clip = Jump2;
+                au.Play();
+
+                GetComponent<Rigidbody2D> ().velocity = new Vector2 (GetComponent<Rigidbody2D> ().velocity.x, jumpForce);
 
 				doJump = true;
 
@@ -253,6 +281,12 @@ public class PlayerController : MonoBehaviour {
         else
             attackCollider.offset = new Vector2(attackOffset, 0);
         attackCollider.enabled = true;
+        int rand = Random.Range(0,2);
+        if (rand == 0)
+            au.clip = zeldaSword1;
+        else
+            au.clip = zeldaSword2;
+        au.Play();
         yield return new WaitForSeconds(0.3f);
         attackCollider.enabled = false;
     }
@@ -269,6 +303,8 @@ public class PlayerController : MonoBehaviour {
     void Inhale()
     {
         rb.gravityScale = 0.3f;
+        au.clip = kirbyFloat;
+        au.Play();
         rb.AddForce(new Vector2(0, kirbyImpulse), ForceMode2D.Impulse);
     }
 
@@ -281,6 +317,8 @@ public class PlayerController : MonoBehaviour {
             blowCollider.offset = new Vector2(blowOffset, 0);
         blowCollider.enabled = true;
         anim.SetTrigger("kirby_exhale");
+        au.clip = kirbyShoot;
+        au.Play();
         yield return new WaitForSeconds(1f);
         blowCollider.enabled = false;
     }
@@ -466,6 +504,33 @@ public class PlayerController : MonoBehaviour {
             rb.gravityScale = 1;
         }
 
+        if (marioGoPipe == true)
+        {
+            float perc = marioGoTime / marioMaxTime;
+            //perc = Mathf.Sin(Mathf.PI * perc * 0.5f);
+            marioGoTime += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPos, endPos, perc);
+            if (perc >= 1)
+            {
+                marioGoTime = 0;
+                if (marioDown == true)
+                {
+                    transform.position = pipeEnter.transform.position;// - pipeEnter.transform.up * (Mathf.Abs(pipeEnter.transform.localScale.y * pipeEnter.GetComponent<SpriteRenderer>().sprite.bounds.size.y) / 2);
+                    startPos = transform.position;
+                    endPos = transform.position + transform.up * Mathf.Abs((transform.position.y + Mathf.Abs(transform.localScale.y * GetComponent<SpriteRenderer>().sprite.bounds.size.y)) * 0.8f);
+                    au.clip = pipe;
+                    au.Play();
+                    marioDown = false;
+                }
+                else
+                {
+                    GetComponent<CapsuleCollider2D>().enabled = true;
+                    marioGoPipe = false;
+                    GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    marioDown = true;
+                }
+            }
+        }
 
         if (AbleToMove) {
 			float move = movementSpeed * moveModifier;
@@ -495,12 +560,33 @@ public class PlayerController : MonoBehaviour {
         {
             Killed();
         }
+
+        if (c.gameObject.tag == "Pipe")
+        {
+            Debug.Log("coll pipe");
+            foreach (GameObject pipe in GameObject.FindGameObjectsWithTag("Pipe"))
+            {
+                if (pipe != c.gameObject)
+                {
+                    pipeEnter = pipe;
+                }
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D c)
+    {
+        if (c.gameObject.name == "Pipe")
+        {
+            pipeEnter = null;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D c)
     {
         if (c.gameObject.name == "key")
         {
+            GetComponent<AudioSource>().clip = keyFound;
             HasKey = true;
             Destroy(c.gameObject);
             DoorBehaviour door = GameObject.Find("door").GetComponent<DoorBehaviour>();
@@ -520,6 +606,8 @@ public class PlayerController : MonoBehaviour {
 
         if (c.gameObject.tag == "Enemy" && isShielded == true)
         {
+            au.clip = zeldaShield;
+            au.Play();
             Destroy(c.gameObject);
         }
 
@@ -555,6 +643,8 @@ public class PlayerController : MonoBehaviour {
     private void Killed()
     {
         isKilled = true;
+        au.clip = gameOver;
+        au.Play();
         GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine("RestartLevel");
     }

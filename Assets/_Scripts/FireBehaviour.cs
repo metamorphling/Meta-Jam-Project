@@ -21,6 +21,8 @@ public class FireBehaviour : MonoBehaviour {
     public void IsRight(bool direction)
     {
         isRight = direction;
+        if (isRight == false)
+            GetComponent<SpriteRenderer>().flipX = true;
     }
 
     void Update()

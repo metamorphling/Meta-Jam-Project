@@ -22,6 +22,7 @@ public class BombScript : MonoBehaviour {
                 break;
         }
         GetComponent<Animator>().SetTrigger("explode");
+        GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(0.4f);
         Destroy(gameObject);
     }

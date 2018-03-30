@@ -12,6 +12,8 @@ public class GameEditor : MonoBehaviour {
 	Transform mapGrid;
 	bool CreateGame = true;
 	public Camera cam;
+    public GameObject dropEffect;
+
 	void Start()
 	{
 		GenerateMap ();
@@ -34,8 +36,11 @@ public class GameEditor : MonoBehaviour {
 			Collider2D hit = Physics2D.OverlapPoint(mousePos);
 			if (hit != null) {
 				GameObject tile = Instantiate (objectToSpawn, hit.gameObject.transform.position,Quaternion.identity);
-			}
-		}
+                GameObject tmp = Instantiate(dropEffect);
+                tmp.transform.position = tile.transform.position;
+                GetComponent<AudioSource>().Play();
+            }
+        }
 
 
 

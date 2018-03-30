@@ -15,6 +15,7 @@ public class ControllerSlide : MonoBehaviour {
     bool sliding = false;
     float controllerSize;
     bool isPlaying = false;
+    GameObject gm;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class ControllerSlide : MonoBehaviour {
         controllerSize = (t.sizeDelta.y / (ScreenScale.referenceResolution.y / Screen.height));
         origPos = transform.position;
         origEndPos = transform.position + Vector3.up * controllerSize;
+        gm = GameObject.Find("GameManager");
     }
 
     IEnumerator TimedSliding()
@@ -52,6 +54,7 @@ public class ControllerSlide : MonoBehaviour {
     IEnumerator RestartLevel()
     {
         GameObject gl = GameObject.Find("Glitch");
+        gm.GetComponent<LevelManager>().PlayGlitchSound();
         gl.GetComponent<Animator>().SetTrigger("playGlitch");
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

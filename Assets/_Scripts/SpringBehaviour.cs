@@ -16,6 +16,7 @@ public class SpringBehaviour : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
+            GetComponent<AudioSource>().Play();
             selfSprite.sprite = pressed;
         }
     }

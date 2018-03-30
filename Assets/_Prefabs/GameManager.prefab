@@ -107,3 +107,4 @@ MonoBehaviour:
   - {fileID: 1046380350100522, guid: a9c02e36db854a74c81edf31fbc60c56, type: 2}
   - {fileID: 1046380350100522, guid: dad7145f8de01f54f978bb77c71ace93, type: 2}
   - {fileID: 1814049874314030, guid: 84f556337913ce847b5d2b41783c098a, type: 2}
+  glitchSound: {fileID: 8300000, guid: d3cad0f51e6f9964a833a0ced46e9d9c, type: 3}

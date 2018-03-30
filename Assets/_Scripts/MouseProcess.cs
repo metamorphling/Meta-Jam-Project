@@ -37,6 +37,9 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /* parenting to overlay when flying */
     Transform origParent;
 
+    /* audio theme */
+    public AudioClip characterTheme;
+
     List<MouseProcess> allCartridges;
 
     public enum CartridgeStatus
@@ -85,7 +88,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                     return;
                 }
             }
-
+            cartridges.GetComponent<CartridgesManager>().PlayHover();
             startPos = origPos;
             endPos = transform.position + transform.up * moveDistanceY + transform.right * moveDistanceX;
             currentLerpTime = 0f;
@@ -203,6 +206,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             if (goBack == false)
             {
+                cartridges.GetComponent<CartridgesManager>().PlayInser();
                 inventory.StartSlideOut();
                 animationStatus = CartridgeStatus.Inserted;
                 gameSystemBG.GetComponent<Animator>().SetTrigger("start");
@@ -270,7 +274,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void ChangeLevel()
     {
-        levelManager.ChangeLevel(int.Parse(gameObject.name));
+        levelManager.ChangeLevel(int.Parse(gameObject.name), characterTheme);
         player.GetComponent<PlayerController>().ChangeLevel(int.Parse(gameObject.name));
     }
 }
