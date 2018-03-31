@@ -9,10 +9,15 @@ public class EnemyBehaviour : MonoBehaviour {
     public GameObject projectile;
     bool isWokenUp = false;
     bool isDying = false;
+    bool isRight = true;
     Animator anim;
 
 	void Start () {
         anim = GetComponent<Animator>();
+        if (GetComponent<SpriteRenderer>().flipX == true)
+        {
+            isRight = false;
+        }
     }
 
     IEnumerator attack()
@@ -23,7 +28,10 @@ public class EnemyBehaviour : MonoBehaviour {
             GameObject obj = Instantiate(projectile);
 
             obj.transform.position = transform.position;
-            obj.GetComponent<Rigidbody2D>().velocity += new Vector2(attackStrengthX, attackStrengthY);
+            if (isRight)
+                obj.GetComponent<Rigidbody2D>().velocity += new Vector2(attackStrengthX, attackStrengthY);
+            else
+                obj.GetComponent<Rigidbody2D>().velocity += new Vector2(-attackStrengthX, attackStrengthY);
         }
     }
 

@@ -12,12 +12,17 @@ public class BombScript : MonoBehaviour {
         yield return new WaitForSeconds(2f);
         Collider2D[] res = new Collider2D[20];
         ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
         int limit = coll.OverlapCollider(filter, res);
         int counter = 1;
         foreach (Collider2D go in res)
         {
             if (go.gameObject && go.gameObject.tag == "Wall")
                 go.gameObject.GetComponent<BrickBehaviour>().Break();
+            if (go.gameObject && go.gameObject.tag == "Enemy")
+            {
+                go.gameObject.GetComponent<EnemyBehaviour>().Die();
+            }
             if (counter++ >= limit)
                 break;
         }

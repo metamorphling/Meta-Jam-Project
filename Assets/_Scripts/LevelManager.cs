@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour {
     public List<Sprite> backgrounds;
     public List<Sprite> buttons;
     public List<GameObject> itemPrefabs;
-    public AudioClip glitchSound;
+    public AudioClip glitchSound, defaultTheme;
 
     List<SpriteRenderer> floorSprites;
     List<SpriteRenderer> wallSprites;
@@ -126,8 +126,11 @@ public class LevelManager : MonoBehaviour {
     } 
 
 	void Start () {
-
+        if (gameEditor == null)
+            gameEditor = GameObject.Find("Editor").GetComponent<GameEditor>();
         currentTheme = gameObject.AddComponent<AudioSource>();
+        currentTheme.clip = defaultTheme;
+        currentTheme.Play();
 
         Transform tr1, tr2, tr3;
         floorSprites = new List<SpriteRenderer>();

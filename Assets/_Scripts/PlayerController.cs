@@ -587,6 +587,7 @@ public class PlayerController : MonoBehaviour {
         if (c.gameObject.name == "key")
         {
             GetComponent<AudioSource>().clip = keyFound;
+            GetComponent<AudioSource>().Play();
             HasKey = true;
             Destroy(c.gameObject);
             DoorBehaviour door = GameObject.Find("door").GetComponent<DoorBehaviour>();
