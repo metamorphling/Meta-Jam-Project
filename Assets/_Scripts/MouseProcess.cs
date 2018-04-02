@@ -88,7 +88,7 @@ public class MouseProcess : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                     return;
                 }
             }
-            cartridges.GetComponent<CartridgesManager>().PlayHover();
+            //cartridges.GetComponent<CartridgesManager>().PlayHover();
             startPos = origPos;
             endPos = transform.position + transform.up * moveDistanceY + transform.right * moveDistanceX;
             currentLerpTime = 0f;

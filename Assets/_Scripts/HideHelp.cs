@@ -9,10 +9,9 @@ public class HideHelp : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (img.enabled == true && Input.GetButtonDown("Fire1"))
         {
             img.enabled = false;
-            Debug.Log("kek");
         }
     }
 }
